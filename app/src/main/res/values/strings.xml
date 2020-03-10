@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Trova Escape Room</string>
+    <string name="main_activity_title">Trova Escape Room</string>
+
+    <string name="search_hint">Cerca per nome o tag</string>
+
+    <string name="bottom_list">Lista</string>
+    <string name="bottom_map">Mappa</string>
+
+    <string name="det_frag_err">Errore apertura dettagli</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB7stvxiZn7fBCcdUA9JddcC7xzjWx99i8</string>
+</resources>
