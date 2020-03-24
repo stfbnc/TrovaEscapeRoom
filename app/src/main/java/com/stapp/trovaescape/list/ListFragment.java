@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.stapp.trovaescape.R;
-import com.stapp.trovaescape.data.EscapeData;
+import com.stapp.trovaescape.data.Escape;
 import com.stapp.trovaescape.details.EscapeDetails;
 import com.stapp.trovaescape.main.MainActivity;
 
@@ -29,26 +29,12 @@ public class ListFragment extends Fragment {
     private static final String ESCAPE_DETAILS_FRAGMENT = "ESCAPE_DETAILS_FRAGMENT";
 
     private EditText searchEdit;
-    private ArrayList<EscapeData> escapeList;
+    private ArrayList<Escape> escapeList;
     private EscapeListAdapter adapter;
     private BottomNavigationView bottomNavigationView;
 
-    private ArrayList<String> escapeNames = new ArrayList<>();
-
     public ListFragment(){//BottomNavigationView bottomNavigationView){
         //this.bottomNavigationView = bottomNavigationView;
-
-        escapeNames.add("Nox-Escape Room!Via Aaaa 12!Horror!0");
-        escapeNames.add("Locked Escape Room!Via Aaaa 12!Giallo!1");
-        escapeNames.add("Escape Room Campo dei Fiori!Via Aaaa 12!Tag1!0");
-        escapeNames.add("Game Over Escape Rooms!Via Aaaa 12!Tag2!0");
-        escapeNames.add("La Casa degli Enigmi!Via Aaaa 12!Tag3!0");
-        escapeNames.add("Escape Room Resolute!Via Aaaa 12!Tag4!0");
-        escapeNames.add("Escape Room Adventure Rooms!Via Aaaa 12!Tag5!0");
-        escapeNames.add("Questhouse!Via Aaaa 12!Tag6!0");
-        escapeNames.add("Escape Room Roma 2!Via Aaaa 12!Tag7!1");
-        escapeNames.add("Magic Escape Room!Via Aaaa 12!Tag8!0");
-        escapeNames.add("Escape Room Roma!Via Aaaa 12!Tag9!0");
     }
 
     /*public static ListFragment newInstance(){//BottomNavigationView bottomNavigationView){
@@ -104,46 +90,31 @@ public class ListFragment extends Fragment {
         getListAtStart();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
     public void setBottomNavigationView(BottomNavigationView bottomNavigationView){
         this.bottomNavigationView = bottomNavigationView;
     }
 
     private void getListAtStart(){
         escapeList.clear();
-        for(int i = 0; i < escapeNames.size(); i++){
-            String[] s = escapeNames.get(i).split("!");
 
-            EscapeData e = new EscapeData();
-            e.setName(s[0]);
-            e.setAddress(s[1]);
-            e.setTags(s[2]);
-            String x = s[3];
-            if(x.equals("0"))
-                e.setFree(false);
-            else if(x.equals("1"))
-                e.setFree(true);
-            escapeList.add(e);
-        }
+        escapeList = MainActivity.e;
+
         adapter.notifyDataSetChanged();
     }
 
     private void getFilteredList(CharSequence txt){
         escapeList.clear();
-        for(int i = 0; i < escapeNames.size(); i++){
-            String[] s = escapeNames.get(i).split("!");
 
-            if(s[0].toLowerCase().contains(txt.toString().toLowerCase())) {
-                EscapeData e = new EscapeData();
-                e.setName(s[0]);
-                e.setAddress(s[1]);
-                e.setTags(s[2]);
-                String x = s[3];
-                if (x.equals("0"))
-                    e.setFree(false);
-                else if (x.equals("1"))
-                    e.setFree(true);
-                escapeList.add(e);
-            }
+        ArrayList<Escape> a = MainActivity.e;
+        for(int i = 0; i < a.size(); i++){
+
+            if(a.get(i).getName().toLowerCase().contains(txt.toString().toLowerCase()))
+                escapeList.add(a.get(i));
         }
         adapter.notifyDataSetChanged();
     }

@@ -1,6 +1,7 @@
 package com.stapp.trovaescape.map;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stapp.trovaescape.R;
+import com.stapp.trovaescape.data.Escape;
+import com.stapp.trovaescape.main.MainActivity;
 
 import java.util.ArrayList;
 
@@ -75,8 +78,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         //mMap = googleMap;
         ArrayList<LatLng> markersCoords = new ArrayList<>();
-        markersCoords.add(new LatLng(12.4, 43.5));
-        markersCoords.add(new LatLng(11.5, 44.8));
+        ArrayList<Escape> a = MainActivity.e;
+        for(int i = 0; i < a.size(); i++) {
+            Log.d("AAAAAAA", a.get(i).getCoords().toString());
+            markersCoords.add(a.get(i).getCoords());
+        }
 
         ArrayList<Marker> markersList = new ArrayList<>();
         for(int i = 0; i < markersCoords.size(); i++){
@@ -112,6 +118,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
         mapView.onResume();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
     }
 
     @Override

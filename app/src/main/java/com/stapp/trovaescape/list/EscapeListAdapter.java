@@ -11,13 +11,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.stapp.trovaescape.R;
-import com.stapp.trovaescape.data.EscapeData;
+import com.stapp.trovaescape.data.Escape;
 
 import java.util.ArrayList;
 
 public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.ViewHolder> {
 
-    private ArrayList<EscapeData> escapeList;
+    private ArrayList<Escape> escapeList;
     private Context ctx;
     View.OnClickListener clickListener;
 
@@ -33,7 +33,7 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
         }
     }
 
-    public EscapeListAdapter(ArrayList<EscapeData> escapeList) {
+    public EscapeListAdapter(ArrayList<Escape> escapeList) {
         this.escapeList = escapeList;
     }
 
@@ -60,7 +60,7 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
                 holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.icon_lock_red_24dp));
             holder.name.setText(escapeList.get(position).getName());
             holder.address.setText(escapeList.get(position).getAddress());
-            holder.tags.setText(escapeList.get(position).getTags());
+            holder.tags.setText(escapeList.get(position).getAllTagsFormatted());
         }
     }
 
