@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Escape {
 
+    private int code;
     private String name;
     private String address;
     private String phone;
@@ -15,6 +16,7 @@ public class Escape {
     private boolean isFree;
 
     public Escape(){
+        this.code = -1;
         this.name = "";
         this.address = "";
         this.phone = "";
@@ -23,6 +25,10 @@ public class Escape {
         this.rooms = new ArrayList<>();
         this.isFree = false;
     }
+
+    public void setCode(int code) { this.code = code; }
+
+    public int getCode() { return code; }
 
     public void setName(String name) { this.name = name; }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Room {
 
+    private int code;
     private String name;
     private String website;
     private ArrayList<String> prices;
@@ -11,12 +12,17 @@ public class Room {
     private ArrayList<String> tags;
 
     public Room(){
+        this.code = -1;
         this.name = "";
         this.website = "";
         this.prices = new ArrayList<>();
         this.availabilities = new ArrayList<>();
         this.tags = new ArrayList<>();
     }
+
+    public void setCode(int code) { this.code = code; }
+
+    public int getCode() { return code; }
 
     public void setName(String name) { this.name = name; }
 

@@ -9,5 +9,8 @@
 
     <string name="det_frag_err">Errore apertura dettagli</string>
 
+    <string name="internet_alert_title">Errore</string>
+    <string name="internet_alert_text">È necessaria una connessione internet alla prima apertura dell\'applicazione</string>
+
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB7stvxiZn7fBCcdUA9JddcC7xzjWx99i8</string>
 </resources>
