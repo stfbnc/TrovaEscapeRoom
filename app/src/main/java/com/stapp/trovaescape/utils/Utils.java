@@ -6,6 +6,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.stapp.trovaescape.BuildConfig;
+import com.stapp.trovaescape.data.Constants;
+import com.stapp.trovaescape.data.Room;
+
+import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,6 +42,29 @@ public class Utils {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public String getAllTagsFormatted(ArrayList<Room> rooms){
+        StringBuilder t = new StringBuilder();
+        for(int i = 0; i < rooms.size(); i++) {
+            t.append(getTagsFormatted(rooms.get(i).getTags()));
+            if(i != rooms.size()-1)
+                t.append(" ");
+        }
+        return t.toString();
+    }
+
+    public String getTagsFormatted(String tags){
+        StringBuilder t = new StringBuilder();
+        String[] tagsArr = tags.split(Constants.FIELDS_SEP);
+
+        for(int i = 0; i < tagsArr.length; i++){
+            if(i != 0)
+                t.append(" ");
+            t.append("#");
+            t.append(tagsArr[i]);
+        }
+        return t.toString();
     }
 
 }

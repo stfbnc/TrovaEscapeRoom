@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Escape {
 
-    private int code;
+    private String code;
     private String name;
     private String address;
     private String phone;
@@ -16,7 +16,7 @@ public class Escape {
     private boolean isFree;
 
     public Escape(){
-        this.code = -1;
+        this.code = "";
         this.name = "";
         this.address = "";
         this.phone = "";
@@ -26,9 +26,9 @@ public class Escape {
         this.isFree = false;
     }
 
-    public void setCode(int code) { this.code = code; }
+    public void setCode(String code) { this.code = code; }
 
-    public int getCode() { return code; }
+    public String getCode() { return code; }
 
     public void setName(String name) { this.name = name; }
 
@@ -53,7 +53,7 @@ public class Escape {
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
         for(int i = 0; i < rooms.size(); i++) {
-            if (rooms.get(i).getAvailabilities().size() > 0) {
+            if(rooms.get(i).getAvailabilities().contains(Constants.FIELDS_SEP)) {
                 setFree(true);
                 break;
             }
@@ -65,15 +65,5 @@ public class Escape {
     public void setFree(boolean isFree) { this.isFree = isFree; }
 
     public boolean getFree() { return isFree; }
-
-    public String getAllTagsFormatted(){
-        StringBuilder t = new StringBuilder();
-        for(int i = 0; i < rooms.size(); i++) {
-            t.append(rooms.get(i).getTagsFormatted());
-            if(i != rooms.size()-1)
-                t.append(" ");
-        }
-        return t.toString();
-    }
 
 }

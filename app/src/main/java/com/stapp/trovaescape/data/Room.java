@@ -1,28 +1,26 @@
 package com.stapp.trovaescape.data;
 
-import java.util.ArrayList;
-
 public class Room {
 
-    private int code;
+    private String code;
     private String name;
     private String website;
-    private ArrayList<String> prices;
-    private ArrayList<String> availabilities;
-    private ArrayList<String> tags;
+    private String prices;
+    private String availabilities;
+    private String tags;
 
     public Room(){
-        this.code = -1;
+        this.code = "";
         this.name = "";
         this.website = "";
-        this.prices = new ArrayList<>();
-        this.availabilities = new ArrayList<>();
-        this.tags = new ArrayList<>();
+        this.prices = "";
+        this.availabilities = "";
+        this.tags = "";
     }
 
-    public void setCode(int code) { this.code = code; }
+    public void setCode(String code) { this.code = code; }
 
-    public int getCode() { return code; }
+    public String getCode() { return code; }
 
     public void setName(String name) { this.name = name; }
 
@@ -32,27 +30,16 @@ public class Room {
 
     public String getWebsite() { return website; }
 
-    public void setPrices(ArrayList<String> prices) { this.prices = prices; }
+    public void setPrices(String prices) { this.prices = prices; }
 
-    public ArrayList<String> getPrices() { return prices; }
+    public String getPrices() { return prices; }
 
-    public void setAvailabilities(ArrayList<String> availabilities) { this.availabilities = availabilities; }
+    public void setAvailabilities(String availabilities) { this.availabilities = availabilities; }
 
-    public ArrayList<String> getAvailabilities() { return availabilities; }
+    public String getAvailabilities() { return availabilities; }
 
-    public void setTags(ArrayList<String> tags) { this.tags = tags; }
+    public void setTags(String tags) { this.tags = tags; }
 
-    public ArrayList<String> getTags() { return tags; }
-
-    public String getTagsFormatted(){
-        StringBuilder t = new StringBuilder();
-        for(int i = 0; i < tags.size(); i++){
-            if(i != 0)
-                t.append(" ");
-            t.append("#");
-            t.append(tags.get(i));
-        }
-        return t.toString();
-    }
+    public String getTags() { return tags; }
 
 }

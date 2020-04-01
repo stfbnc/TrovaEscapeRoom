@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.stapp.trovaescape.data.Escape;
+import com.stapp.trovaescape.data.Room;
+
+import java.util.ArrayList;
+
 public class DataManager {
 
     private SQLiteDatabase db;
@@ -35,7 +40,6 @@ public class DataManager {
     public static final String ROOM_TAB_WEBSITE = "WEBSITE"; // website
     public static final String ROOM_TAB_PRICES = "PRICES"; // prices
     public static final String ROOM_TAB_AVAIL = "AVAIL"; // availabilities
-    public static final String ROOM_TAB_ESCAPE_CODE = "ESCAPE_CODE"; // escape code
     public static final String ROOM_TAB_CODE = "CODE"; // code identifier
     public static final int ROOM_TAB_ID_IDX = 0;
     public static final int ROOM_TAB_NAME_IDX = 1;
@@ -78,7 +82,9 @@ public class DataManager {
                        " WHERE " + LTU_TAB_ID + " =  1;";
         Log.i("getDbTime() = ", query);
         Cursor c = db.rawQuery(query,null);
-        return c.getString(LTU_TAB_TIME_IDX);
+        String time = c.getString(LTU_TAB_TIME_IDX);
+        c.close();
+        return time;
     }
 
     public void updateDbTime(String time){
@@ -89,23 +95,60 @@ public class DataManager {
         db.execSQL(query);
     }
 
-    public void fillDb(){
-        // prima sdraiare il db
-        // dividere in escape e room
-        fillDbWithEscapes();
-        fillDbWithRooms();
+    public void fillDb(ArrayList<Escape> e){
+        db.execSQL("DELETE FROM "+ ESCAPE_TAB);
+        db.execSQL("DELETE FROM "+ ROOM_TAB);
+        for(int i = 0; i < e.size(); i++) {
+            fillDbWithEscape(e.get(i));
+            fillDbWithRooms(e.get(i).getRoom());
+        }
     }
 
     public void fillDbWithoutInternet(){
-        // prendo le room e metto avail e prices a "cannot get data"
+        String query = "UPDATE " + ROOM_TAB +
+                " SET " + ROOM_TAB_PRICES + " = '', " +
+                ROOM_TAB_AVAIL + " = '';";
+        Log.i("fillDbW/oInternet() = ", query);
+        db.execSQL(query);
     }
 
-    public void fillDbWithEscapes(){
-
+    private void fillDbWithEscape(Escape e){
+        String query = "INSERT INTO " + ESCAPE_TAB +
+                " (" + ESCAPE_TAB_NAME + ", " +
+                ESCAPE_TAB_ADDRESS + ", " +
+                ESCAPE_TAB_PHONE + ", " +
+                ESCAPE_TAB_WEBSITE + ", " +
+                ESCAPE_TAB_LAT + ", " +
+                ESCAPE_TAB_LON + ", " +
+                ESCAPE_TAB_CODE + ") " +
+                "VALUES ('" + e.getName() + "', " +
+                "'" + e.getAddress() + "', " +
+                "'" + e.getPhone() + "', " +
+                "'" + e.getWebsite() + "', " +
+                e.getCoords().latitude + ", " +
+                e.getCoords().longitude + ", " +
+                "'" + e.getCode() + "');";
+        Log.i("fillDbWithEscape() = ", query);
+        db.execSQL(query);
     }
 
-    public void fillDbWithRooms(){
-
+    private void fillDbWithRooms(ArrayList<Room> r){
+        for(int i = 0; i < r.size(); i++) {
+            Room room = r.get(i);
+            String query = "INSERT INTO " + ROOM_TAB +
+                    " (" + ROOM_TAB_NAME + ", " +
+                    ROOM_TAB_WEBSITE + ", " +
+                    ROOM_TAB_PRICES + ", " +
+                    ROOM_TAB_AVAIL + ", " +
+                    ROOM_TAB_CODE + ") " +
+                    "VALUES ('" + room.getName() + "', " +
+                    "'" + room.getWebsite() + "', " +
+                    "'" + room.getPrices() + "', " +
+                    "'" + room.getAvailabilities() + "', " +
+                    "'" + room.getCode() + "');";
+            Log.i("fillDbWithRooms() = ", query);
+            db.execSQL(query);
+        }
     }
 
     public void getEscapes(String pattern){
@@ -116,33 +159,7 @@ public class DataManager {
 
     }
 
-    /*public void paytabInsert(Bundle bndl){
-        String query = "INSERT INTO "+PAYTAB+
-                " ("+PAYTAB_DATE+", "+PAYTAB_LSTU+", "+PAYTAB_DSCR+", "+PAYTAB_EURO+", "+PAYTAB_TYPE+", "+PAYTAB_IORO+") "+
-                "VALUES ("+"'"+bndl.getString(PAYTAB_DATE)+"', '"+bndl.getString(PAYTAB_LSTU)+"', '"+bndl.getString(PAYTAB_DSCR)+"', "+
-                bndl.getDouble(PAYTAB_EURO)+", '"+bndl.getString(PAYTAB_TYPE)+"', "+bndl.getInt(PAYTAB_IORO)+");";
-        Log.i("paytabInsert() = ", query);
-        db.execSQL(query);
-    }
-
-    public void paytabUpdate(Integer urno, Bundle bndl){
-        String query = "UPDATE "+PAYTAB+
-                " SET "+PAYTAB_DATE+" = '"+bndl.getString(PAYTAB_DATE)+"', "+
-                PAYTAB_LSTU+" = '"+bndl.getString(PAYTAB_LSTU)+"', "+
-                PAYTAB_DSCR+" = '"+bndl.getString(PAYTAB_DSCR)+"', "+
-                PAYTAB_EURO+" = "+bndl.getDouble(PAYTAB_EURO)+", "+
-                PAYTAB_TYPE+" = '"+bndl.getString(PAYTAB_TYPE)+"', "+
-                PAYTAB_IORO+" = "+bndl.getInt(PAYTAB_IORO)+
-                " WHERE "+PAYTAB_ID+" = "+urno+";";
-        Log.i("paytabUpdate() = ", query);
-        db.execSQL(query);
-    }
-
-    public void paytabDelete(Integer urno){
-        String query = "DELETE FROM "+PAYTAB+" WHERE "+PAYTAB_ID+" = "+urno+";";
-        Log.i("paytabDelete() = ", query);
-        db.execSQL(query);
-    }
+    /*
 
     public Cursor paytabSelectAll(){
         Cursor c = db.rawQuery("SELECT * FROM "+PAYTAB+" ORDER BY "+PAYTAB_DATE+" DESC;", null);
@@ -288,7 +305,6 @@ public class DataManager {
                     ROOM_TAB_WEBSITE + " TEXT NOT NULL, " +
                     ROOM_TAB_PRICES + " TEXT NOT NULL, " +
                     ROOM_TAB_AVAIL + " TEXT NOT NULL, " +
-                    ROOM_TAB_ESCAPE_CODE + " TEXT NOT NULL, " +
                     ROOM_TAB_CODE + " TEXT NOT NULL);";
             db.execSQL(roomTable);
 

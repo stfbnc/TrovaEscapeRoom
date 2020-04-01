@@ -51,7 +51,7 @@ public class SplashScreen extends FragmentActivity {
             ArrayList<Escape> escapes = dataRetriever.requestData();
             if(escapes.size() > 0) {
                 dataManager.updateDbTime(ltu);
-                dataManager.fillDb();
+                dataManager.fillDb(escapes);
             }else{
                 dataManager.fillDbWithoutInternet();
             }
