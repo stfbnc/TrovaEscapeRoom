@@ -24,8 +24,8 @@ import java.util.regex.Pattern;
 public class DataRetriever implements VolleyResponseListener {
 
     private Context context;
-    private String time;
-    private ArrayList<Escape> escapes;
+    //private String time = "";
+    //private ArrayList<Escape> escapes;
 
     public DataRetriever(Context context) {
         this.context = context;
@@ -46,7 +46,7 @@ public class DataRetriever implements VolleyResponseListener {
         rs.add(jsonObjectRequest);
     }
 
-    public String requestUpdateTime(){
+    /*public void requestUpdateTime(){
         RequestQueue rs = Volley.newRequestQueue(context);
         sendJsonRequest(rs, Constants.LTU_URL, new VolleyResponseListener() {
             @Override
@@ -60,9 +60,9 @@ public class DataRetriever implements VolleyResponseListener {
                 if (response != null) {
                     Log.d("respOKLTU", "responseOKLTU = " + response);
                     String responseStr = response.toString().trim();
-                    Pattern regex = Pattern.compile("\"\\d{14}\"");
-                    if (regex.matcher(responseStr).matches()) {
-                        time = getTime(response);
+                    Pattern regex = Pattern.compile("\"[0-9]{14}\"");
+                    if (regex.matcher(responseStr).find()) {
+                        setTime(response);
                     }else{
                         Log.d("wrongDateLTU", "responseLTU = " + response);
                         time = Constants.NULL_TIME;
@@ -73,21 +73,18 @@ public class DataRetriever implements VolleyResponseListener {
                 }
             }
         });
-        return time;
-    }
+    }*/
 
-    private String getTime(JSONObject obj){
-        String t;
+    public String getTimeString(JSONObject obj){
         try {
-            t = obj.get(Constants.DB_TIME).toString();
+            return obj.get(Constants.DB_TIME).toString();
         }catch (JSONException je) {
             Log.d("respKO", "responseKO = " + obj);
-            t = Constants.NULL_TIME;
+            return Constants.NULL_TIME;
         }
-        return t;
     }
 
-    public ArrayList<Escape> requestData(){
+    /*public ArrayList<Escape> requestData(){
         RequestQueue rs = Volley.newRequestQueue(context);
         sendJsonRequest(rs, Constants.DATA_URL, new VolleyResponseListener() {
             @Override
@@ -108,9 +105,9 @@ public class DataRetriever implements VolleyResponseListener {
             }
         });
         return escapes;
-    }
+    }*/
 
-    private ArrayList<Escape> getEscapes(JSONObject obj){
+    public ArrayList<Escape> getEscapesArray(JSONObject obj){
         try{
             ArrayList<Escape> e = new ArrayList<>();
             JSONArray escapesArr = obj.getJSONArray(Constants.ESCAPE_SECTION);

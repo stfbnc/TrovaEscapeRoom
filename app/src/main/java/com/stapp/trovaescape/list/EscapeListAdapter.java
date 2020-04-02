@@ -60,7 +60,7 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
                 holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.icon_lock_red_24dp));
             holder.name.setText(escapeList.get(position).getName());
             holder.address.setText(escapeList.get(position).getAddress());
-            holder.tags.setText(escapeList.get(position).getAllTagsFormatted());
+            //holder.tags.setText(escapeList.get(position).getAllTagsFormatted());
         }
     }
 

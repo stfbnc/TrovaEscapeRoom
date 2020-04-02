@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.stapp.trovaescape.data.Constants;
 import com.stapp.trovaescape.data.Escape;
 import com.stapp.trovaescape.data.Room;
 
@@ -79,11 +80,14 @@ public class DataManager {
     public String getDbTime(){
         String query = "SELECT " + LTU_TAB_TIME +
                        " FROM " + LTU_TAB +
-                       " WHERE " + LTU_TAB_ID + " =  1;";
+                       " WHERE " + LTU_TAB_ID + " = 1;";
         Log.i("getDbTime() = ", query);
         Cursor c = db.rawQuery(query,null);
-        String time = c.getString(LTU_TAB_TIME_IDX);
-        c.close();
+        String time = Constants.NULL_TIME;
+        if(c.moveToFirst()) {
+            time = c.getString(0);
+            c.close();
+        }
         return time;
     }
 
@@ -155,7 +159,7 @@ public class DataManager {
 
     }
 
-    public void getEscapeRooms(int escapeId){
+    public void getEscapeRooms(String escapeId){
 
     }
 
