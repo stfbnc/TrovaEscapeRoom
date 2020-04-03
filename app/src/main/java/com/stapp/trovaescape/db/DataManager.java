@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.stapp.trovaescape.data.Constants;
 import com.stapp.trovaescape.data.Escape;
 import com.stapp.trovaescape.data.Room;
@@ -47,8 +48,7 @@ public class DataManager {
     public static final int ROOM_TAB_WEBSITE_IDX = 2;
     public static final int ROOM_TAB_PRICES_IDX = 3;
     public static final int ROOM_TAB_AVAIL_IDX = 4;
-    public static final int ROOM_TAB_ESCAPE_ID_IDX = 5;
-    public static final int ROOM_TAB_CODE_IDX = 6;
+    public static final int ROOM_TAB_CODE_IDX = 5;
 
     // db ltu table columns
     public static final String LTU_TAB_ID = "ID"; // id
@@ -86,8 +86,8 @@ public class DataManager {
         String time = Constants.NULL_TIME;
         if(c.moveToFirst()) {
             time = c.getString(0);
-            c.close();
         }
+        c.close();
         return time;
     }
 
@@ -155,12 +155,45 @@ public class DataManager {
         }
     }
 
-    public void getEscapes(String pattern){
-
+    public ArrayList<Escape> getEscapes(){
+        ArrayList<Escape> escapes = new ArrayList<>();
+        String query = "SELECT * FROM " + ESCAPE_TAB;
+        Cursor c = db.rawQuery(query,null);
+        if(c.moveToFirst()) {
+            do {
+                Escape e = new Escape();
+                e.setName(c.getString(ESCAPE_TAB_NAME_IDX));
+                e.setAddress(c.getString(ESCAPE_TAB_ADDRESS_IDX));
+                e.setPhone(c.getString(ESCAPE_TAB_PHONE_IDX));
+                e.setWebsite(c.getString(ESCAPE_TAB_WEBSITE_IDX));
+                e.setCode(c.getString(ESCAPE_TAB_CODE_IDX));
+                e.setCoords(new LatLng(c.getDouble(ESCAPE_TAB_LAT_IDX), c.getDouble(ESCAPE_TAB_LON_IDX)));
+                e.setRooms(getEscapeRooms(e.getCode()));
+                escapes.add(e);
+            } while(c.moveToNext());
+        }
+        c.close();
+        return escapes;
     }
 
-    public void getEscapeRooms(String escapeId){
-
+    public ArrayList<Room> getEscapeRooms(String escapeId){
+        ArrayList<Room> rooms = new ArrayList<>();
+        String query = "SELECT * FROM " + ROOM_TAB + " WHERE " + ROOM_TAB_CODE +
+                       " LIKE '" + escapeId + "%' ORDER BY " + ROOM_TAB_NAME;
+        Cursor c = db.rawQuery(query,null);
+        if(c.moveToFirst()) {
+            do {
+                Room r = new Room();
+                r.setName(c.getString(ROOM_TAB_NAME_IDX));
+                r.setWebsite(c.getString(ROOM_TAB_WEBSITE_IDX));
+                r.setPrices(c.getString(ROOM_TAB_PRICES_IDX));
+                r.setAvailabilities(c.getString(ROOM_TAB_AVAIL_IDX));
+                r.setCode(c.getString(ROOM_TAB_CODE_IDX));
+                rooms.add(r);
+            } while (c.moveToNext());
+        }
+        c.close();
+        return rooms;
     }
 
     /*

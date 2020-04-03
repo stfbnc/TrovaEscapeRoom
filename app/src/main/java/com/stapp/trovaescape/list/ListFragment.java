@@ -1,5 +1,6 @@
 package com.stapp.trovaescape.list;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Escape;
+import com.stapp.trovaescape.db.DataManager;
 import com.stapp.trovaescape.details.EscapeDetails;
 import com.stapp.trovaescape.main.MainActivity;
 
@@ -29,7 +31,7 @@ public class ListFragment extends Fragment {
     private static final String ESCAPE_DETAILS_FRAGMENT = "ESCAPE_DETAILS_FRAGMENT";
 
     private EditText searchEdit;
-    private ArrayList<Escape> escapeList;
+    private ArrayList<Escape> escapeList = new ArrayList<>();
     private EscapeListAdapter adapter;
     private BottomNavigationView bottomNavigationView;
 
@@ -63,7 +65,7 @@ public class ListFragment extends Fragment {
                 if(s.length() != 0)
                     getFilteredList(s);
                 else
-                    getListAtStart();
+                    getEscapeList();
             }
         });
 
@@ -71,7 +73,6 @@ public class ListFragment extends Fragment {
         recEscape.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recEscape.setLayoutManager(layoutManager);
-        escapeList = new ArrayList<>();
         adapter = new EscapeListAdapter(escapeList);
         recEscape.setAdapter(adapter);
         adapter.setOnItemClickListener(new View.OnClickListener() {
@@ -80,14 +81,14 @@ public class ListFragment extends Fragment {
                 openDetails(recEscape.getChildAdapterPosition(v));
             }
         });
-        getListAtStart();
+        getEscapeList();
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getListAtStart();
+        getEscapeList();
     }
 
     @Override
@@ -99,16 +100,15 @@ public class ListFragment extends Fragment {
         this.bottomNavigationView = bottomNavigationView;
     }
 
-    private void getListAtStart(){
+    private void getEscapeList(){
         escapeList.clear();
-
-        escapeList = MainActivity.e;
-
+        DataManager dm = new DataManager(getContext());
+        escapeList.addAll(dm.getEscapes());
         adapter.notifyDataSetChanged();
     }
 
     private void getFilteredList(CharSequence txt){
-        escapeList.clear();
+        /*escapeList.clear();
 
         ArrayList<Escape> a = MainActivity.e;
         for(int i = 0; i < a.size(); i++){
@@ -116,11 +116,11 @@ public class ListFragment extends Fragment {
             if(a.get(i).getName().toLowerCase().contains(txt.toString().toLowerCase()))
                 escapeList.add(a.get(i));
         }
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
     }
 
     private void openDetails(int pos){
-        try {
+        /*try {
             FragmentManager manager = getActivity().getSupportFragmentManager();//getChildFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.main_frame_layout, new EscapeDetails(), ESCAPE_DETAILS_FRAGMENT);
@@ -130,7 +130,7 @@ public class ListFragment extends Fragment {
         }catch (NullPointerException npe){
             Log.d("LIST_FRAGMENT_OPEN_DET", "Escape details fragment error!");
             Toast.makeText(getActivity(), R.string.det_frag_err, Toast.LENGTH_LONG).show();
-        }
+        }*/
     }
 
 }

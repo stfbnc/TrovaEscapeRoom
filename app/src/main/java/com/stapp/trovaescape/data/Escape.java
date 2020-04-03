@@ -53,7 +53,7 @@ public class Escape {
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
         for(int i = 0; i < rooms.size(); i++) {
-            if(rooms.get(i).getAvailabilities().contains(Constants.FIELDS_SEP)) {
+            if(!rooms.get(i).getAvailabilities().equals("")) {
                 setFree(true);
                 break;
             }

@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Escape;
+import com.stapp.trovaescape.db.DataManager;
 import com.stapp.trovaescape.main.MainActivity;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
 
+    private ArrayList<Escape> escapeList = new ArrayList<>();
+    private ArrayList<LatLng> markersCoords = new ArrayList<>();
     private MapView mapView;
     //private GoogleMap mMap;
 
@@ -77,12 +80,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         //mMap = googleMap;
-        ArrayList<LatLng> markersCoords = new ArrayList<>();
-        ArrayList<Escape> a = MainActivity.e;
-        for(int i = 0; i < a.size(); i++) {
-            Log.d("AAAAAAA", a.get(i).getCoords().toString());
-            markersCoords.add(a.get(i).getCoords());
-        }
+        getMarkersCoordinates();
 
         ArrayList<Marker> markersList = new ArrayList<>();
         for(int i = 0; i < markersCoords.size(); i++){
@@ -118,6 +116,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        getMarkersCoordinates();
+        mapView.invalidate();
     }
 
     @Override
@@ -155,9 +155,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onDestroy();
     }
 
-    /*private ArrayList<LatLng> getMarkersCoordsList(){
-        Escapes escapes = new Escapes(MapsActivity.this);
-        return escapes.getEscapesCoords();
-    }*/
+    private void getMarkersCoordinates(){
+        getEscapeList();
+        for(int i = 0; i < escapeList.size(); i++)
+            markersCoords.add(escapeList.get(i).getCoords());
+    }
+
+    private void getEscapeList(){
+        escapeList.clear();
+        DataManager dm = new DataManager(getContext());
+        escapeList.addAll(dm.getEscapes());
+    }
 
 }
