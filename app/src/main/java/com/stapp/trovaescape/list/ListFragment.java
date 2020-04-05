@@ -32,6 +32,7 @@ public class ListFragment extends Fragment {
 
     private EditText searchEdit;
     private ArrayList<Escape> escapeList = new ArrayList<>();
+    //private String filter = "";
     private EscapeListAdapter adapter;
     private BottomNavigationView bottomNavigationView;
 
@@ -63,9 +64,10 @@ public class ListFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() != 0)
-                    getFilteredList(s);
+                    MainActivity.filter = s.toString();
                 else
-                    getEscapeList();
+                    MainActivity.filter = "";
+                getEscapeList(MainActivity.filter);
             }
         });
 
@@ -81,14 +83,15 @@ public class ListFragment extends Fragment {
                 openDetails(recEscape.getChildAdapterPosition(v));
             }
         });
-        getEscapeList();
+        getEscapeList(MainActivity.filter);
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getEscapeList();
+        getEscapeList(MainActivity.filter);
+        searchEdit.setText(MainActivity.filter);
     }
 
     @Override
@@ -100,37 +103,25 @@ public class ListFragment extends Fragment {
         this.bottomNavigationView = bottomNavigationView;
     }
 
-    private void getEscapeList(){
+    private void getEscapeList(String seq){
         escapeList.clear();
         DataManager dm = new DataManager(getContext());
-        escapeList.addAll(dm.getEscapes());
+        escapeList.addAll(dm.getEscapes(seq));
         adapter.notifyDataSetChanged();
     }
 
-    private void getFilteredList(CharSequence txt){
-        /*escapeList.clear();
-
-        ArrayList<Escape> a = MainActivity.e;
-        for(int i = 0; i < a.size(); i++){
-
-            if(a.get(i).getName().toLowerCase().contains(txt.toString().toLowerCase()))
-                escapeList.add(a.get(i));
-        }
-        adapter.notifyDataSetChanged();*/
-    }
-
     private void openDetails(int pos){
-        /*try {
+        try {
             FragmentManager manager = getActivity().getSupportFragmentManager();//getChildFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.main_frame_layout, new EscapeDetails(), ESCAPE_DETAILS_FRAGMENT);
+            transaction.replace(R.id.main_frame_layout, new EscapeDetails(escapeList.get(pos)), ESCAPE_DETAILS_FRAGMENT);
             transaction.addToBackStack(null);
             transaction.commit();
             bottomNavigationView.setVisibility(View.GONE);
         }catch (NullPointerException npe){
             Log.d("LIST_FRAGMENT_OPEN_DET", "Escape details fragment error!");
             Toast.makeText(getActivity(), R.string.det_frag_err, Toast.LENGTH_LONG).show();
-        }*/
+        }
     }
 
 }

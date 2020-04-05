@@ -25,6 +25,6 @@ public class Constants {
     public static String ROOM_AVAIL = "AVAIL";
     public static String ROOM_CODE = "CODE";
 
-    public static String FIELDS_SEP = "|";
+    public static String FIELDS_SEP = "\\|";
 
 }

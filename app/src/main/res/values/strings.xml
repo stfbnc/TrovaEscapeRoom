@@ -3,6 +3,7 @@
     <string name="main_activity_title">Trova Escape Room</string>
 
     <string name="search_hint">Cerca per nome o tag</string>
+    <string name="book_room">Prenota</string>
 
     <string name="bottom_list">Lista</string>
     <string name="bottom_map">Mappa</string>

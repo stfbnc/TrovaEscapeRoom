@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DataManager {
 
     private SQLiteDatabase db;
-    private Context context;
+    //private Context context;
 
     // db escape table columns
     public static final String ESCAPE_TAB_ID = "ID"; // id
@@ -64,7 +64,7 @@ public class DataManager {
     private static final String LTU_TAB = "LTU_TAB"; // table with last time update info
 
     public DataManager(Context context){
-        this.context = context;
+        //this.context = context;
         CustomSQLiteOpenHelper helper = new CustomSQLiteOpenHelper(context);
         db = helper.getWritableDatabase();
     }
@@ -155,9 +155,11 @@ public class DataManager {
         }
     }
 
-    public ArrayList<Escape> getEscapes(){
+    public ArrayList<Escape> getEscapes(String str){
         ArrayList<Escape> escapes = new ArrayList<>();
         String query = "SELECT * FROM " + ESCAPE_TAB;
+        if(!str.equals(""))
+            query += " WHERE LOWER(" + ESCAPE_TAB_NAME + ") LIKE '%" + str.toLowerCase() + "%'";
         Cursor c = db.rawQuery(query,null);
         if(c.moveToFirst()) {
             do {
@@ -195,127 +197,6 @@ public class DataManager {
         c.close();
         return rooms;
     }
-
-    /*
-
-    public Cursor paytabSelectAll(){
-        Cursor c = db.rawQuery("SELECT * FROM "+PAYTAB+" ORDER BY "+PAYTAB_DATE+" DESC;", null);
-        return c;
-    }
-
-    public Cursor paytabSelect(Bundle bundle){
-        String query = "SELECT * FROM "+PAYTAB;
-        ArrayList<String> arr = new ArrayList<>();
-        String date1 = bundle.getString(BaseActivity.START_DATE);
-        String date2 = bundle.getString(BaseActivity.END_DATE);
-        String fltr_type = bundle.getString(BaseActivity.FILTER_TYPE);
-        String fltr_dscr = bundle.getString(BaseActivity.FILTER_DSCR);
-        int fltr_ioro = bundle.getInt(BaseActivity.FILTER_IORO);
-        if(!fltr_type.equals(context.getResources().getString(R.string.empty_type)))
-            arr.add(PAYTAB_TYPE+" = '"+fltr_type+"'");
-        if(!fltr_dscr.isEmpty())
-            arr.add(PAYTAB_DSCR+" LIKE '%"+fltr_dscr+"%'");
-        if(fltr_ioro != BaseActivity.BOTH)
-            arr.add(PAYTAB_IORO+" = "+fltr_ioro);
-        if(!date1.isEmpty()){
-            if(date2.isEmpty())
-                arr.add(PAYTAB_DATE+" = '"+date1+"'");
-            else
-                arr.add(PAYTAB_DATE+" BETWEEN '"+date1+"' AND '"+date2+"'");
-        }
-        if(arr.size() > 0) {
-            query += " WHERE ";
-            for (int i = 0; i < arr.size(); i++) {
-                if (i == arr.size() - 1)
-                    query += arr.get(i);
-                else
-                    query += arr.get(i) + " AND ";
-            }
-        }
-        query += " ORDER BY " + PAYTAB_DATE + " DESC;";
-        Log.i("paytabSelect() = ", query);
-        Cursor c = db.rawQuery(query, null);
-        return c;
-    }
-
-    public Cursor paytabSelectById(Integer urno){
-        Cursor c = db.rawQuery("SELECT * FROM "+PAYTAB+" WHERE "+PAYTAB_ID+" = "+urno+";",null);
-        return c;
-    }
-
-    public double paytabSelectTotal(String urnos, int in_out){
-        Cursor c = db.rawQuery("SELECT SUM("+PAYTAB_EURO+") FROM "+PAYTAB+" WHERE "+PAYTAB_ID+" IN ("+urnos+") AND "+PAYTAB_IORO+" = "+in_out+";",null);
-        if(c.moveToFirst()){
-            double sum = c.getDouble(0);
-            c.close();
-            return sum;
-        }else{
-            return 0.0;
-        }
-    }
-
-    public String[] paytabSelectMax(String urnos, int in_out){
-        Cursor c = db.rawQuery("SELECT MAX("+PAYTAB_EURO+"), "+PAYTAB_DATE+" FROM "+PAYTAB+" WHERE "+PAYTAB_ID+" IN ("+urnos+") AND "+PAYTAB_IORO+" = "+in_out+";",null);
-        if(c.moveToFirst()){
-            double max = c.getDouble(0);
-            String date = c.getString(1);
-            c.close();
-            if(date != null)
-                return new String[]{String.format("%.2f", max), date};
-            else
-                return new String[]{"0.0", ""};
-        }else{
-            return new String[]{"0.0", ""};
-        }
-    }
-
-    public Cursor paytabSelectEuroGroupByType(String urnos, int in_out){
-        Cursor c = db.rawQuery("SELECT SUM("+PAYTAB_EURO+"), "+PAYTAB_TYPE+" FROM "+PAYTAB+" WHERE "+PAYTAB_ID+" IN ("+urnos+")"+
-                " AND "+PAYTAB_IORO+" = "+in_out+" GROUP BY "+PAYTAB_TYPE+";",null);
-        return c;
-    }
-
-    public Cursor paytabSelectEuroGroupByDate(String urnos){
-        Cursor c = db.rawQuery("SELECT "+PAYTAB_DATE+", "+PAYTAB_IORO+", SUM("+PAYTAB_EURO+") FROM "+PAYTAB+" WHERE "+PAYTAB_ID+" IN ("+urnos+")"+
-                " GROUP BY "+PAYTAB_DATE+", "+PAYTAB_IORO+" ORDER BY "+PAYTAB_DATE+";",null);
-        return c;
-    }
-
-    public void typtabInsert(String type){
-        String query = "INSERT INTO "+TYPTAB+
-                " ("+TYPTAB_TYPE+") VALUES ('"+type+"');";
-        Log.i("typtabInsert() = ", query);
-        db.execSQL(query);
-    }
-
-    public Cursor typtabSelectTypes(){
-        Cursor c = db.rawQuery("SELECT "+TYPTAB_TYPE+" FROM "+TYPTAB+";", null);
-        return c;
-    }
-
-    public void updtabInsert(Bundle bndl){
-        String query = "INSERT INTO "+UPDTAB+
-                " ("+UPDTAB_CDAT+", "+UPDTAB_DATE+", "+UPDTAB_DSCR+", "+UPDTAB_EURO+", "+UPDTAB_TYPE+", "+UPDTAB_IORO+", "+UPDTAB_UPAY+") "+
-                "VALUES ("+"'"+bndl.getString(UPDTAB_CDAT)+"', '"+bndl.getString(UPDTAB_DATE)+"', '"+bndl.getString(UPDTAB_DSCR)+"', "+
-                bndl.getDouble(UPDTAB_EURO)+", '"+bndl.getString(UPDTAB_TYPE)+"', "+bndl.getInt(UPDTAB_IORO)+", "+bndl.getInt(UPDTAB_UPAY)+");";
-        Log.i("updtabInsert() = ", query);
-        db.execSQL(query);
-    }
-
-    public Cursor updtabSelectIds(Integer urno){
-        Cursor c = db.rawQuery("SELECT "+UPDTAB_ID+" FROM "+UPDTAB+" WHERE "+UPDTAB_UPAY+" = "+urno+" ORDER BY "+UPDTAB_CDAT+" DESC;", null);
-        return c;
-    }*/
-
-    /*public Cursor updtabSelectById(Integer urno){
-        Cursor c = db.rawQuery("SELECT * FROM "+UPDTAB+" WHERE "+UPDTAB_ID+" = "+urno+";", null);
-        return c;
-    }*/
-
-    /*public int countRows(String table){
-        Cursor c = db.rawQuery("SELECT * FROM "+table+";", null);
-        return c.getCount();
-    }*/
 
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
 

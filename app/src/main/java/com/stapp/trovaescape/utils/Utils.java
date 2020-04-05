@@ -67,4 +67,28 @@ public class Utils {
         return t.toString();
     }
 
+    public static String getPricesFormatted(String prices){
+        StringBuilder t = new StringBuilder();
+        String[] pricesArr = prices.split(Constants.FIELDS_SEP);
+
+        for(int i = 0; i < pricesArr.length; i++){
+            if(i != 0)
+                t.append("; ");
+            t.append(pricesArr[i]);
+        }
+        return t.toString();
+    }
+
+    public static String getAvailsFormatted(String avails){
+        StringBuilder t = new StringBuilder();
+        String[] availsArr = avails.split(Constants.FIELDS_SEP);
+
+        for(int i = 0; i < availsArr.length; i++){
+            if(i != 0)
+                t.append("; ");
+            t.append(availsArr[i]);
+        }
+        return t.toString();
+    }
+
 }

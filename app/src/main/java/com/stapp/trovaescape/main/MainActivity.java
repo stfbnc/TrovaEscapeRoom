@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String LIST_FRAGMENT = "LIST_FRAGMENT";
     private static final String MAP_FRAGMENT = "MAP_FRAGMENT";
 
+    public static String filter = ""; // same filter for both fragments
+
     private BottomNavigationView bottomNavigation;
 
     final FragmentManager fragmentManager = getSupportFragmentManager();

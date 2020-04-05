@@ -116,7 +116,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        getMarkersCoordinates();
+        //getMarkersCoordinates();
         mapView.invalidate();
     }
 
@@ -164,7 +164,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void getEscapeList(){
         escapeList.clear();
         DataManager dm = new DataManager(getContext());
-        escapeList.addAll(dm.getEscapes());
+        escapeList.addAll(dm.getEscapes(""));
     }
 
 }
