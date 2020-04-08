@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ((ListFragment) listFragment).setBottomNavigationView(bottomNavigation);
+        ((MapFragment) mapFragment).setBottomNavigationView(bottomNavigation);
 
     }
 

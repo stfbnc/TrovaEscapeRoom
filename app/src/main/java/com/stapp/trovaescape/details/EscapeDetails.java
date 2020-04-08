@@ -1,6 +1,8 @@
 package com.stapp.trovaescape.details;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,13 +60,15 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
         TextView tvAddress = v.findViewById(R.id.escape_address);
         tvAddress.setText(currentEscape.getAddress());
 
-        // TODO: link al telefono
         TextView tvPhone = v.findViewById(R.id.escape_phone);
         tvPhone.setText(currentEscape.getPhone());
 
-        // TODO: link al sito
         TextView tvWebsite = v.findViewById(R.id.escape_website);
-        tvWebsite.setText(currentEscape.getWebsite());
+        String ws = "<a href=\"" + currentEscape.getWebsite() + "\">" +
+                    getContext().getString(R.string.site_string) + "</a>";
+        tvWebsite.setText(Html.fromHtml(ws));
+        tvWebsite.setMovementMethod(LinkMovementMethod.getInstance());
+        tvWebsite.setLinksClickable(true);
 
         ArrayList<Room> roomList = currentEscape.getRoom();
 

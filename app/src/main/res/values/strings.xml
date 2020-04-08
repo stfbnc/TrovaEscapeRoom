@@ -4,6 +4,7 @@
 
     <string name="search_hint">Cerca per nome o tag</string>
     <string name="book_room">Prenota</string>
+    <string name="site_string">Sito</string>
 
     <string name="bottom_list">Lista</string>
     <string name="bottom_map">Mappa</string>

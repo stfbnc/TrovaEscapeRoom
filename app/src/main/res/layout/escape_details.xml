@@ -109,7 +109,8 @@
                     android:layout_marginTop="5dp"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:autoLink="phone" />
 
                 <TextView
                     android:id="@+id/escape_website"

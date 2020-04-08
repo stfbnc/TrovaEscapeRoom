@@ -7,35 +7,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Escape;
 import com.stapp.trovaescape.db.DataManager;
+import com.stapp.trovaescape.details.EscapeDetails;
 import com.stapp.trovaescape.main.MainActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
+    private static final String ESCAPE_DETAILS_FRAGMENT = "ESCAPE_DETAILS_FRAGMENT";
 
     private ArrayList<Escape> escapeList = new ArrayList<>();
-    private ArrayList<LatLng> markersCoords = new ArrayList<>();
+    private HashMap<LatLng, Escape> markersCoords = new HashMap<>();
     private MapView mapView;
-    //private GoogleMap mMap;
+    private BottomNavigationView bottomNavigationView;
+    private GoogleMap mMap = null;
 
     public MapFragment(){}
 
@@ -54,6 +63,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.escape_map, container, false);
+
         mapView = (MapView) v.findViewById(R.id.map);
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -61,6 +71,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
+
         return v;
     }
 
@@ -79,12 +90,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //mMap = googleMap;
-        getMarkersCoordinates();
+        mMap = googleMap;
+        escapeList.clear();
+        markersCoords.clear();
+        DataManager dm = new DataManager(getContext());
+        escapeList.addAll(dm.getEscapes(MainActivity.filter));
+        Log.d("AAAA", MainActivity.filter);
+        for(int i = 0; i < escapeList.size(); i++)
+            markersCoords.put(escapeList.get(i).getCoords(), escapeList.get(i));
 
+        float color;
         ArrayList<Marker> markersList = new ArrayList<>();
-        for(int i = 0; i < markersCoords.size(); i++){
-            markersList.add(googleMap.addMarker(new MarkerOptions().position(markersCoords.get(i))));
+        //for(int i = 0; i < markersCoords.size(); i++){
+        for(LatLng coords : markersCoords.keySet()){
+            if(markersCoords.get(coords).getFree())
+                color = BitmapDescriptorFactory.HUE_GREEN;
+            else
+                color = BitmapDescriptorFactory.HUE_RED;
+            markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
+                                .icon(BitmapDescriptorFactory.defaultMarker(color))));
         }
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Marker marker : markersList) {
@@ -99,17 +123,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         int height = getResources().getDisplayMetrics().heightPixels;
         //int minMetric = Math.min(width, height);
         //int padding = (int) (minMetric * 10);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, 80));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, 80));
         //    }
         //});
-        /*mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                MarkerDetails markerDetails = new MarkerDetails(MapsActivity.this, marker);
-                markerDetails.showDetails();
+                openDetails(marker);
                 return true;
             }
-        });*/
+        });
     }
 
     @Override
@@ -117,12 +140,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onResume();
         mapView.onResume();
         //getMarkersCoordinates();
-        mapView.invalidate();
+        //mapView.invalidate();
+        if(mMap != null)
+            onMapReady(mMap);
+        Log.d("map onResume", "map onResume");
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        if(mMap != null)
+            onMapReady(mMap);
+        Log.d("map onHiddenChanged", "map onHiddenChanged");
     }
 
     @Override
@@ -155,16 +184,32 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onDestroy();
     }
 
-    private void getMarkersCoordinates(){
+    public void setBottomNavigationView(BottomNavigationView bottomNavigationView){
+        this.bottomNavigationView = bottomNavigationView;
+    }
+
+    public void openDetails(Marker marker){
+        try {
+            FragmentManager manager = getActivity().getSupportFragmentManager();//getChildFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.main_frame_layout, new EscapeDetails(markersCoords.get(marker.getPosition())),
+                                ESCAPE_DETAILS_FRAGMENT);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            bottomNavigationView.setVisibility(View.GONE);
+        }catch (NullPointerException npe){
+            Log.d("MAP_FRAGMENT_OPEN_DET", "Escape details fragment error!");
+            Toast.makeText(getActivity(), R.string.det_frag_err, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /*private void getMarkersCoordinates(){
         getEscapeList();
-        for(int i = 0; i < escapeList.size(); i++)
-            markersCoords.add(escapeList.get(i).getCoords());
+
     }
 
     private void getEscapeList(){
-        escapeList.clear();
-        DataManager dm = new DataManager(getContext());
-        escapeList.addAll(dm.getEscapes(""));
-    }
+
+    }*/
 
 }
