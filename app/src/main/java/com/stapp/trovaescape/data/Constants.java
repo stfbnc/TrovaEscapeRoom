@@ -27,4 +27,6 @@ public class Constants {
 
     public static String FIELDS_SEP = "\\|";
 
+    public static int DELAY = 60000;
+
 }

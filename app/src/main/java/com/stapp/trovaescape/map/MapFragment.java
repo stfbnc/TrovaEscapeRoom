@@ -1,11 +1,14 @@
 package com.stapp.trovaescape.map;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,11 +43,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     private static final String ESCAPE_DETAILS_FRAGMENT = "ESCAPE_DETAILS_FRAGMENT";
 
+    private EditText searchEdit;
     private ArrayList<Escape> escapeList = new ArrayList<>();
     private HashMap<LatLng, Escape> markersCoords = new HashMap<>();
     private MapView mapView;
     private BottomNavigationView bottomNavigationView;
-    private GoogleMap mMap = null;
+    public GoogleMap mMap = null;
 
     public MapFragment(){}
 
@@ -63,6 +67,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.escape_map, container, false);
+
+        searchEdit = v.findViewById(R.id.search_edit);
+        searchEdit.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() != 0)
+                    MainActivity.filter = s.toString();
+                else
+                    MainActivity.filter = "";
+                if(mMap != null)
+                    onMapReady(mMap);
+            }
+        });
 
         mapView = (MapView) v.findViewById(R.id.map);
         Bundle mapViewBundle = null;
@@ -139,8 +163,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        //getMarkersCoordinates();
         //mapView.invalidate();
+        searchEdit.setText(MainActivity.filter);
         if(mMap != null)
             onMapReady(mMap);
         Log.d("map onResume", "map onResume");
@@ -149,6 +173,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        searchEdit.setText(MainActivity.filter);
         if(mMap != null)
             onMapReady(mMap);
         Log.d("map onHiddenChanged", "map onHiddenChanged");

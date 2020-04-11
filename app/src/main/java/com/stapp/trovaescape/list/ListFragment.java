@@ -52,6 +52,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.escape_list, container, false);
+
         searchEdit = v.findViewById(R.id.search_edit);
         searchEdit.addTextChangedListener(new TextWatcher() {
 
@@ -84,6 +85,7 @@ public class ListFragment extends Fragment {
             }
         });
         getEscapeList(MainActivity.filter);
+
         return v;
     }
 
@@ -97,13 +99,15 @@ public class ListFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        getEscapeList(MainActivity.filter);
+        searchEdit.setText(MainActivity.filter);
     }
 
     public void setBottomNavigationView(BottomNavigationView bottomNavigationView){
         this.bottomNavigationView = bottomNavigationView;
     }
 
-    private void getEscapeList(String seq){
+    public void getEscapeList(String seq){
         escapeList.clear();
         DataManager dm = new DataManager(getContext());
         escapeList.addAll(dm.getEscapes(seq));
