@@ -9,7 +9,7 @@
     android:measureAllChildren="false"
     android:scrollbars="none"
     android:orientation="vertical"
-    android:background="@drawable/custom_border">
+    android:background="@drawable/marker_background_red">
 
     <LinearLayout
         android:layout_width="match_parent"

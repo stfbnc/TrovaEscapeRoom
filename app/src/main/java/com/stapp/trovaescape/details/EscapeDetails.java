@@ -25,10 +25,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Escape;
 import com.stapp.trovaescape.data.Room;
+import com.stapp.trovaescape.map.MapMarker;
 
 import java.util.ArrayList;
 
 public class EscapeDetails extends Fragment implements OnMapReadyCallback {
+
+    // TODO: centrare meglio il marker con il title
+    // TODO: icone per telefono e sito cliccabili
+    // TODO: bottone prenota più piccolo
+    // TODO: elemento lista room
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     public static boolean isOpen = false;
@@ -95,15 +101,24 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         LatLng markerCoords = currentEscape.getCoords();
 
-        float color;
-        if(currentEscape.getFree())
-            color = BitmapDescriptorFactory.HUE_GREEN;
-        else
-            color = BitmapDescriptorFactory.HUE_RED;
+        //float color;
+        /*int drawable;
+        if(currentEscape.getFree()) {
+            //color = BitmapDescriptorFactory.HUE_GREEN;
+            drawable = R.drawable.default_marker_green;
+        }else{
+            drawable = R.drawable.default_marker_red;
+            //color = BitmapDescriptorFactory.HUE_RED;
+        }*/
+        MapMarker mapMarker = new MapMarker(currentEscape.getFree(), getContext());
+        Marker marker = googleMap.addMarker(new MarkerOptions().position(markerCoords)
+                                 .title(currentEscape.getAddress())
+                                 .icon(BitmapDescriptorFactory.fromBitmap(mapMarker.getDefaultMarker())));
+        marker.showInfoWindow();
         //ArrayList<Marker> markersList = new ArrayList<>();
         //for(int i = 0; i < markersCoords.size(); i++){
-        Marker marker = googleMap.addMarker(new MarkerOptions().position(markerCoords)
-                                 .icon(BitmapDescriptorFactory.defaultMarker(color)));
+        //Marker marker = googleMap.addMarker(new MarkerOptions().position(markerCoords)
+        //                         .icon(BitmapDescriptorFactory.defaultMarker(color)));
             //marker.add(googleMap.addMarker(new MarkerOptions().position(markersCoords.get(i))
             //        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))));
         //}
@@ -113,7 +128,7 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
             //builder.include(marker.getPosition());
         //}
         final LatLngBounds bounds = builder.build();
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(), 15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(), 18));
     }
 
     @Override
@@ -136,7 +151,6 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
             mapViewBundle = new Bundle();
             outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle);
         }
-
         mapView.onSaveInstanceState(mapViewBundle);
     }
 

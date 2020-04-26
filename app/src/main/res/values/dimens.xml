@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="img_box_size_list">40dp</dimen>
-    <dimen name="img_box_size_searchbar">20dp</dimen>
+    <dimen name="img_box_size_list">60dp</dimen>
+    <dimen name="img_box_size_searchbar">25dp</dimen>
 </resources>

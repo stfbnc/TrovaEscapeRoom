@@ -1,5 +1,6 @@
 package com.stapp.trovaescape.map;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -123,16 +124,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         for(int i = 0; i < escapeList.size(); i++)
             markersCoords.put(escapeList.get(i).getCoords(), escapeList.get(i));
 
-        float color;
+        //float color;
         ArrayList<Marker> markersList = new ArrayList<>();
         //for(int i = 0; i < markersCoords.size(); i++){
         for(LatLng coords : markersCoords.keySet()){
-            if(markersCoords.get(coords).getFree())
+            /*if(markersCoords.get(coords).getFree())
                 color = BitmapDescriptorFactory.HUE_GREEN;
             else
-                color = BitmapDescriptorFactory.HUE_RED;
+                color = BitmapDescriptorFactory.HUE_RED;*/
+            //markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
+            //                    .icon(BitmapDescriptorFactory.defaultMarker(color))));
+            MapMarker mapMarker = new MapMarker(markersCoords.get(coords).getFree(),
+                                                markersCoords.get(coords).getName(), getContext());
             markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
-                                .icon(BitmapDescriptorFactory.defaultMarker(color))));
+                                .icon(BitmapDescriptorFactory.fromBitmap(mapMarker.getMarker()))));
         }
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Marker marker : markersList) {

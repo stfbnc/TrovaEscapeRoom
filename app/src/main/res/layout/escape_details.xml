@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="0.7">
+        android:layout_weight="0.8">
 
         <TextView
             android:id="@+id/escape_name"
@@ -21,25 +21,68 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/escape_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:layout_gravity="center"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/escape_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:autoLink="phone" />
+
+                <TextView
+                    android:id="@+id/escape_website"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+        <TextView
+            android:id="@+id/list_div"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorPrimary"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rooms_recycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp" />
+            android:layout_gravity="center"/>
 
         <!--TextView
             android:id="@+id/prova"
@@ -61,33 +104,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="0.3">
+        android:layout_weight="0.2"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/row_div"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="3dp"
             android:background="@color/colorPrimary"/>
 
-        <LinearLayout
+        <!--LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:orientation="horizontal"
-            android:weightSum="1" >
+            android:weightSum="1"-->
 
-            <LinearLayout
+            <!--LinearLayout
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="0.35"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:orientation="vertical" >
 
                 <TextView
@@ -106,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:textColor="@color/colorPrimary"
@@ -118,22 +153,22 @@
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:textColor="@color/colorPrimary" />
 
-            </LinearLayout>
+            </LinearLayout-->
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/details_map"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.65"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+                <!--android:layout_weight="0.65" /-->
+                <!--android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp" /-->
 
-        </LinearLayout>
+        <!--/LinearLayout-->
 
     </LinearLayout>
 

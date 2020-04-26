@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="available">@android:color/holo_green_dark</color>
+    <color name="not_available">@android:color/holo_red_dark</color>
 </resources>

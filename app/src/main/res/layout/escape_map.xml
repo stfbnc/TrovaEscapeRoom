@@ -8,13 +8,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" >
 
         <ImageView
             android:id="@+id/search_img"
             android:layout_width="@dimen/img_box_size_searchbar"
             android:layout_height="@dimen/img_box_size_searchbar"
-            android:layout_marginStart="2dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:scaleType="fitCenter"
@@ -25,7 +28,7 @@
             android:id="@+id/search_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="5dp"
             android:gravity="start"
             android:textColor="@color/colorPrimary"
             android:layout_gravity="center_vertical"
@@ -39,6 +42,12 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" /-->
+
+    <TextView
+        android:id="@+id/map_div"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/colorPrimary"/>
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
