@@ -1,5 +1,7 @@
 package com.stapp.trovaescape.details;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -7,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -31,8 +34,7 @@ import java.util.ArrayList;
 
 public class EscapeDetails extends Fragment implements OnMapReadyCallback {
 
-    // TODO: centrare meglio il marker con il title
-    // TODO: icone per telefono e sito cliccabili
+    // TODO: layout ora | solo tre bottoni sotto (indicazioni) | bottoni sovraimpressi a mappa
     // TODO: bottone prenota più piccolo
     // TODO: elemento lista room
 
@@ -64,18 +66,32 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
         TextView tvName = v.findViewById(R.id.escape_name);
         tvName.setText(currentEscape.getName());
 
-        TextView tvAddress = v.findViewById(R.id.escape_address);
-        tvAddress.setText(currentEscape.getAddress());
+        //TextView tvAddress = v.findViewById(R.id.escape_address);
+        //tvAddress.setText(currentEscape.getAddress());
 
-        TextView tvPhone = v.findViewById(R.id.escape_phone);
-        tvPhone.setText(currentEscape.getPhone());
+        ImageButton imPhone = v.findViewById(R.id.escape_phone);
+        imPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + currentEscape.getPhone()));
+                startActivity(i);
+            }
+        });
+        //tvPhone.setText(currentEscape.getPhone());
 
-        TextView tvWebsite = v.findViewById(R.id.escape_website);
-        String ws = "<a href=\"" + currentEscape.getWebsite() + "\">" +
+        ImageButton imWebsite = v.findViewById(R.id.escape_website);
+        imWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(currentEscape.getWebsite()));
+                startActivity(i);
+            }
+        });
+        /*String ws = "<a href=\"" + currentEscape.getWebsite() + "\">" +
                     getContext().getString(R.string.site_string) + "</a>";
         tvWebsite.setText(Html.fromHtml(ws));
         tvWebsite.setMovementMethod(LinkMovementMethod.getInstance());
-        tvWebsite.setLinksClickable(true);
+        tvWebsite.setLinksClickable(true);*/
 
         ArrayList<Room> roomList = currentEscape.getRoom();
 
@@ -129,6 +145,8 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
         //}
         final LatLngBounds bounds = builder.build();
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(), 18));
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(marker.getPosition().latitude+0.00015,
+        //                                                        marker.getPosition().longitude), 18));
     }
 
     @Override
