@@ -2,10 +2,13 @@ package com.stapp.trovaescape.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.stapp.trovaescape.BuildConfig;
+import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Constants;
 import com.stapp.trovaescape.data.Room;
 
@@ -67,26 +70,38 @@ public class Utils {
         return t.toString();
     }
 
-    public static String getPricesFormatted(String prices){
+    public static String getPricesFormatted(Context context, String prices){
         StringBuilder t = new StringBuilder();
         String[] pricesArr = prices.split(Constants.FIELDS_SEP);
 
-        for(int i = 0; i < pricesArr.length; i++){
-            if(i != 0)
-                t.append("; ");
-            t.append(pricesArr[i]);
+        if(pricesArr.length > 0) {
+            if(!pricesArr[0].equals("")) {
+                t.append(context.getString(R.string.prices_string));
+                t.append("\n");
+                for (int i = 0; i < pricesArr.length; i++) {
+                    if (i != 0)
+                        t.append("\n");
+                    t.append(pricesArr[i]);
+                }
+            }
         }
         return t.toString();
     }
 
-    public static String getAvailsFormatted(String avails){
+    public static String getAvailsFormatted(Context context, String avails){
         StringBuilder t = new StringBuilder();
         String[] availsArr = avails.split(Constants.FIELDS_SEP);
 
-        for(int i = 0; i < availsArr.length; i++){
-            if(i != 0)
-                t.append("; ");
-            t.append(availsArr[i]);
+        if(availsArr.length > 0) {
+            if(!availsArr[0].equals("")) {
+                t.append(context.getString(R.string.today_string));
+                t.append("\n");
+                for (int i = 0; i < availsArr.length; i++) {
+                    if (i != 0)
+                        t.append("\n");
+                    t.append(availsArr[i]);
+                }
+            }
         }
         return t.toString();
     }

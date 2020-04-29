@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -28,12 +29,14 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name, prices, avails;
         public Button book;
+        public LinearLayout room_layout;
         public ViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.room_name);
             prices = v.findViewById(R.id.room_prices);
             avails = v.findViewById(R.id.room_avails);
             book = v.findViewById(R.id.book_btn);
+            room_layout = v.findViewById(R.id.ll_room);
         }
     }
 
@@ -58,9 +61,24 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
     public void onBindViewHolder(final RoomListAdapter.ViewHolder holder, final int position) {
         holder.itemView.setOnClickListener(clickListener);
         if(roomList.size() > 0){
+            if(roomList.get(position).getAvailabilities().equals(""))
+                holder.room_layout.setBackground(ctx.getDrawable(R.drawable.room_background_red));
+            else
+                holder.room_layout.setBackground(ctx.getDrawable(R.drawable.room_background_green));
             holder.name.setText(roomList.get(position).getName());
-            holder.prices.setText(Utils.getPricesFormatted(roomList.get(position).getPrices()));
-            holder.avails.setText(Utils.getAvailsFormatted(roomList.get(position).getAvailabilities()));
+
+            String prc = Utils.getPricesFormatted(ctx, roomList.get(position).getPrices());
+            if(prc.equals(""))
+                holder.prices.setVisibility(View.GONE);
+            else
+                holder.prices.setText(prc);
+
+            String avl = Utils.getAvailsFormatted(ctx, roomList.get(position).getAvailabilities());
+            if(avl.equals(""))
+                holder.avails.setVisibility(View.GONE);
+            else
+                holder.avails.setText(avl);
+
             holder.book.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -5,10 +5,10 @@
         android:drawable="@drawable/white_circle" />
     <item
         android:gravity="center"
-        android:drawable="@drawable/phone"
-        android:top="6dp"
-        android:bottom="6dp"
-        android:left="6dp"
-        android:right="6dp" />
+        android:drawable="@drawable/directions"
+        android:top="5dp"
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp" />
 
 </layer-list>

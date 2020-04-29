@@ -31,8 +31,9 @@ import com.stapp.trovaescape.data.Room;
 import com.stapp.trovaescape.map.MapMarker;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class EscapeDetails extends Fragment implements OnMapReadyCallback {
+public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
 
     // TODO: layout ora | solo tre bottoni sotto (indicazioni) | bottoni sovraimpressi a mappa
     // TODO: bottone prenota più piccolo
@@ -41,17 +42,13 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     public static boolean isOpen = false;
 
-    private MapView mapView;
+    //private MapView mapView;
     private Escape currentEscape;
 
     public EscapeDetails(Escape currentEscape) {
         this.currentEscape = currentEscape;
         isOpen = true;
     }
-
-    /*public static EscapeDetails newInstance(){
-        return new EscapeDetails();
-    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,9 +63,6 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
         TextView tvName = v.findViewById(R.id.escape_name);
         tvName.setText(currentEscape.getName());
 
-        //TextView tvAddress = v.findViewById(R.id.escape_address);
-        //tvAddress.setText(currentEscape.getAddress());
-
         ImageButton imPhone = v.findViewById(R.id.escape_phone);
         imPhone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +71,6 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
                 startActivity(i);
             }
         });
-        //tvPhone.setText(currentEscape.getPhone());
 
         ImageButton imWebsite = v.findViewById(R.id.escape_website);
         imWebsite.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +86,20 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
         tvWebsite.setMovementMethod(LinkMovementMethod.getInstance());
         tvWebsite.setLinksClickable(true);*/
 
+        ImageButton imDirections = v.findViewById(R.id.escape_directions);
+        final String dirData = "http://maps.google.com/maps?daddr="+
+                         currentEscape.getCoords().latitude+","+
+                         currentEscape.getCoords().longitude+
+                         "("+currentEscape.getAddress()+")";
+        imDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(dirData));
+                i.setPackage("com.google.android.apps.maps");
+                startActivity(i);
+            }
+        });
+
         ArrayList<Room> roomList = currentEscape.getRoom();
 
         final RecyclerView recRoom = v.findViewById(R.id.rooms_recycle);
@@ -102,30 +109,21 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
         RoomListAdapter adapter = new RoomListAdapter(roomList);
         recRoom.setAdapter(adapter);
 
-        mapView = (MapView) v.findViewById(R.id.details_map);
+        /*mapView = (MapView) v.findViewById(R.id.details_map);
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
         }
         mapView.onCreate(mapViewBundle);
-        mapView.getMapAsync(this);
+        mapView.getMapAsync(this);*/
 
         return v;
     }
 
-    @Override
+    /*@Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng markerCoords = currentEscape.getCoords();
 
-        //float color;
-        /*int drawable;
-        if(currentEscape.getFree()) {
-            //color = BitmapDescriptorFactory.HUE_GREEN;
-            drawable = R.drawable.default_marker_green;
-        }else{
-            drawable = R.drawable.default_marker_red;
-            //color = BitmapDescriptorFactory.HUE_RED;
-        }*/
         MapMarker mapMarker = new MapMarker(currentEscape.getFree(), getContext());
         Marker marker = googleMap.addMarker(new MarkerOptions().position(markerCoords)
                                  .title(currentEscape.getAddress())
@@ -144,24 +142,24 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
             //builder.include(marker.getPosition());
         //}
         final LatLngBounds bounds = builder.build();
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(), 18));
-        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(marker.getPosition().latitude+0.00015,
-        //                                                        marker.getPosition().longitude), 18));
-    }
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bounds.getCenter(), 18));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(marker.getPosition().latitude+0.00025,
+                                                                marker.getPosition().longitude), 18));
+    }*/
 
     @Override
     public void onResume() {
         super.onResume();
-        mapView.onResume();
+        //mapView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mapView.onPause();
+        //mapView.onPause();
     }
 
-    @Override
+    /*@Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Bundle mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY);
@@ -170,18 +168,18 @@ public class EscapeDetails extends Fragment implements OnMapReadyCallback {
             outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle);
         }
         mapView.onSaveInstanceState(mapViewBundle);
-    }
+    }*/
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mapView.onLowMemory();
+        //mapView.onLowMemory();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        //mapView.onDestroy();
         isOpen = false;
     }
 

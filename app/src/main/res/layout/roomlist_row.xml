@@ -5,9 +5,11 @@
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:layout_gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
+        android:id="@+id/ll_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -16,6 +18,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:weightSum="1">
+        <!--android:background="@drawable/room_background_green"-->
 
         <LinearLayout
             android:layout_width="0dp"

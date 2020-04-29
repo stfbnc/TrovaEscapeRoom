@@ -2,4 +2,5 @@
 <resources>
     <dimen name="img_box_size_list">60dp</dimen>
     <dimen name="img_box_size_searchbar">25dp</dimen>
+    <dimen name="details_btn_size">60dp</dimen>
 </resources>

@@ -4,16 +4,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/colorPrimary">
+
+    <!-- three horizontally aligned buttons -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="0.7">
+        android:background="@color/colorPrimary"
+        android:layout_weight="0.2">
 
         <TextView
             android:id="@+id/escape_name"
@@ -26,7 +29,52 @@
             android:paddingEnd="5dp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:background="@color/white"/>
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/escape_phone"
+                android:layout_width="@dimen/details_btn_size"
+                android:layout_height="@dimen/details_btn_size"
+                android:layout_gravity="center"
+                android:background="@drawable/phone_button"
+                android:layout_marginEnd="60dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/escape_website"/>
+
+            <ImageButton
+                android:id="@+id/escape_website"
+                android:layout_width="@dimen/details_btn_size"
+                android:layout_height="@dimen/details_btn_size"
+                android:layout_gravity="center"
+                android:background="@drawable/link_button"
+                android:layout_centerInParent="true"/>
+
+            <ImageButton
+                android:id="@+id/escape_directions"
+                android:layout_width="@dimen/details_btn_size"
+                android:layout_height="@dimen/details_btn_size"
+                android:layout_gravity="center"
+                android:background="@drawable/directions_button"
+                android:layout_marginStart="60dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/escape_website"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="0.8">
+        <!--android:layout_weight="0.7"-->
 
         <TextView
             android:id="@+id/list_div"
@@ -41,28 +89,16 @@
             android:gravity="start|center_vertical"
             android:layout_gravity="center"/>
 
-        <!--TextView
-            android:id="@+id/prova"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textColor="@color/colorPrimary"
-            android:text="ciao\nciao\nciao\nciao\nciao\nciao\nciao\nciao\nciao"/-->
-
     </LinearLayout>
 
-    <LinearLayout
+    <!-- vertical buttons and map -->
+
+    <!--LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="0.3"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:layout_weight="0.3">
 
         <TextView
             android:id="@+id/row_div"
@@ -82,70 +118,85 @@
                 android:layout_weight="0.01"
                 android:orientation="vertical">
 
-                <!--TextView
-                    android:id="@+id/escape_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:layout_gravity="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:textColor="@color/colorPrimary" /-->
-
-                <!--TextView
-                    android:id="@+id/escape_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="3dp"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:autoLink="phone" /-->
-
                 <ImageButton
                     android:id="@+id/escape_phone"
                     android:layout_width="@dimen/img_box_size_list"
                     android:layout_height="@dimen/img_box_size_list"
                     android:layout_gravity="center"
+                    android:background="@drawable/phone_button"
                     android:layout_alignParentTop="true"
-                    android:layout_margin="20dp"
-                    android:background="@drawable/phone_button"/>
+                    android:layout_margin="20dp"/>
 
                 <ImageButton
                     android:id="@+id/escape_website"
                     android:layout_width="@dimen/img_box_size_list"
                     android:layout_height="@dimen/img_box_size_list"
                     android:layout_gravity="center"
-                    android:layout_alignParentBottom="true"
-                    android:layout_margin="20dp"
+                    android:background="@drawable/link_button"
                     android:layout_alignBottom="@+id/escape_phone"
-                    android:background="@drawable/link_button" />
-
-                <!--TextView
-                    android:id="@+id/escape_website"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="3dp"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:textColor="@color/colorPrimary" /-->
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="20dp"/>
 
             </RelativeLayout>
 
             <com.google.android.gms.maps.MapView
-                android:id="@+id/details_map"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.99" />
-                <!--android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp" /-->
+            android:id="@+id/details_map"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.99" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout-->
+
+    <!-- buttons over map -->
+
+    <!--LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary"
+        android:layout_weight="0.3">
+
+        <TextView
+            android:id="@+id/row_div"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorPrimary"/>
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/details_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/escape_phone"
+                android:layout_width="@dimen/img_box_size_list"
+                android:layout_height="@dimen/img_box_size_list"
+                android:background="@drawable/phone_button"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_toStartOf="@+id/escape_website"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageButton
+                android:id="@+id/escape_website"
+                android:layout_width="@dimen/img_box_size_list"
+                android:layout_height="@dimen/img_box_size_list"
+                android:background="@drawable/link_button"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout-->
 
 </LinearLayout>
