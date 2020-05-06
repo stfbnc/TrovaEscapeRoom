@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,15 +28,18 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
     View.OnClickListener clickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, prices, avails;
-        public Button book;
+        public TextView name, prices, avails, ptitle, atitle;
+        public ImageButton book, done;
         public LinearLayout room_layout;
         public ViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.room_name);
             prices = v.findViewById(R.id.room_prices);
             avails = v.findViewById(R.id.room_avails);
+            ptitle = v.findViewById(R.id.title_prices);
+            atitle = v.findViewById(R.id.title_avails);
             book = v.findViewById(R.id.book_btn);
+            done = v.findViewById(R.id.escape_tick);
             room_layout = v.findViewById(R.id.ll_room);
         }
     }
@@ -68,21 +72,32 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
             holder.name.setText(roomList.get(position).getName());
 
             String prc = Utils.getPricesFormatted(ctx, roomList.get(position).getPrices());
-            if(prc.equals(""))
+            if(prc.equals("")) {
                 holder.prices.setVisibility(View.GONE);
-            else
+                holder.ptitle.setVisibility(View.GONE);
+            }else {
                 holder.prices.setText(prc);
+            }
 
             String avl = Utils.getAvailsFormatted(ctx, roomList.get(position).getAvailabilities());
-            if(avl.equals(""))
+            if(avl.equals("")) {
                 holder.avails.setVisibility(View.GONE);
-            else
+                holder.atitle.setVisibility(View.GONE);
+            }else {
                 holder.avails.setText(avl);
+            }
 
             holder.book.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     goToSite(roomList.get(position).getWebsite());
+                }
+            });
+
+            holder.done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.done.setBackground(ctx.getDrawable(R.drawable.room_done));
                 }
             });
         }

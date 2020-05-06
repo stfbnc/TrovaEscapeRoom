@@ -76,11 +76,10 @@ public class Utils {
 
         if(pricesArr.length > 0) {
             if(!pricesArr[0].equals("")) {
-                t.append(context.getString(R.string.prices_string));
-                t.append("\n");
                 for (int i = 0; i < pricesArr.length; i++) {
                     if (i != 0)
                         t.append("\n");
+                    t.append("  - ");
                     t.append(pricesArr[i]);
                 }
             }
@@ -94,11 +93,10 @@ public class Utils {
 
         if(availsArr.length > 0) {
             if(!availsArr[0].equals("")) {
-                t.append(context.getString(R.string.today_string));
-                t.append("\n");
                 for (int i = 0; i < availsArr.length; i++) {
                     if (i != 0)
                         t.append("\n");
+                    t.append("  ");
                     t.append(availsArr[i]);
                 }
             }

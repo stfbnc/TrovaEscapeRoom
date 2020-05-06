@@ -35,9 +35,9 @@ import java.util.Locale;
 
 public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
 
-    // TODO: layout ora | solo tre bottoni sotto (indicazioni) | bottoni sovraimpressi a mappa
-    // TODO: bottone prenota più piccolo
     // TODO: elemento lista room
+    // TODO: tick in base al codice della room che verrà salvato in shared preferences
+    // TODO: box per gli orari e i tag
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     public static boolean isOpen = false;
