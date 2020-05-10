@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="0.95">
+            android:layout_weight="0.98">
 
             <TextView
                 android:id="@+id/room_name"
@@ -37,7 +37,8 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/title_prices"
@@ -114,7 +115,7 @@
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="0.05">
+            android:layout_weight="0.02">
 
             <ImageButton
                 android:id="@+id/escape_tick"

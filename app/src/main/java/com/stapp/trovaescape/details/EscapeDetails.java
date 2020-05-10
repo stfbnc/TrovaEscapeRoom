@@ -35,7 +35,6 @@ import java.util.Locale;
 
 public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
 
-    // TODO: elemento lista room
     // TODO: tick in base al codice della room che verrà salvato in shared preferences
     // TODO: box per gli orari e i tag
 

@@ -10,6 +10,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.util.Log;
 
@@ -82,7 +86,7 @@ public class MapMarker {
         else
             marker.setBackground(context.getDrawable(R.drawable.marker_background_red));
 
-        return marker.makeIcon(name);
+        return marker.makeIcon(name + " \u25CF 2/5");
     }
 
     public Bitmap getDefaultMarker(){

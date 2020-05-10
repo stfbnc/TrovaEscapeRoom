@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:weightSum="1"
-    android:background="@color/colorPrimary">
+    android:background="@color/white">
 
     <!-- three horizontally aligned buttons -->
 
@@ -15,7 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/details_top_background"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_weight="0.2">
 
         <TextView
@@ -28,20 +32,22 @@
             android:padding="5dp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:background="@color/white"/>
 
         <RelativeLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <ImageButton
                 android:id="@+id/escape_phone"
                 android:layout_width="@dimen/details_btn_size"
                 android:layout_height="@dimen/details_btn_size"
                 android:layout_gravity="center"
-                android:background="@drawable/phone_button"
+                android:background="@drawable/phone"
                 android:layout_marginEnd="60dp"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/escape_website"/>
@@ -51,7 +57,7 @@
                 android:layout_width="@dimen/details_btn_size"
                 android:layout_height="@dimen/details_btn_size"
                 android:layout_gravity="center"
-                android:background="@drawable/link_button"
+                android:background="@drawable/link"
                 android:layout_centerInParent="true"/>
 
             <ImageButton
@@ -59,7 +65,7 @@
                 android:layout_width="@dimen/details_btn_size"
                 android:layout_height="@dimen/details_btn_size"
                 android:layout_gravity="center"
-                android:background="@drawable/directions_button"
+                android:background="@drawable/directions"
                 android:layout_marginStart="60dp"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/escape_website"/>
