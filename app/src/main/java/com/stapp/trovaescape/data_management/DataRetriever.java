@@ -113,7 +113,7 @@ public class DataRetriever implements VolleyResponseListener {
             JSONArray escapesArr = obj.getJSONArray(Constants.ESCAPE_SECTION);
             for(int i = 0; i < escapesArr.length(); i++){
                 JSONObject eObj = escapesArr.getJSONObject(i);
-                Escape escape = new Escape();
+                Escape escape = new Escape(context);
                 escape.setName(eObj.getString(Constants.ESCAPE_NAME));
                 escape.setAddress(eObj.getString(Constants.ESCAPE_ADDRESS));
                 escape.setPhone(eObj.getString(Constants.ESCAPE_PHONE));

@@ -134,8 +134,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 color = BitmapDescriptorFactory.HUE_RED;*/
             //markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
             //                    .icon(BitmapDescriptorFactory.defaultMarker(color))));
-            MapMarker mapMarker = new MapMarker(markersCoords.get(coords).getFree(),
-                                                markersCoords.get(coords).getName(), getContext());
+            MapMarker mapMarker = new MapMarker(markersCoords.get(coords), getContext());
             markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
                                 .icon(BitmapDescriptorFactory.fromBitmap(mapMarker.getMarker()))));
         }

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,14 +36,16 @@ import java.util.Locale;
 
 public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
 
-    // TODO: tick in base al codice della room che verrà salvato in shared preferences
     // TODO: box per gli orari e i tag
+    // TODO: filtro
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     public static boolean isOpen = false;
 
     //private MapView mapView;
     private Escape currentEscape;
+    private ArrayList<Room> roomList = new ArrayList<>();
+    private RoomListAdapter adapter;
 
     public EscapeDetails(Escape currentEscape) {
         this.currentEscape = currentEscape;
@@ -99,13 +102,13 @@ public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
             }
         });
 
-        ArrayList<Room> roomList = currentEscape.getRoom();
+        roomList.addAll(currentEscape.getRoom());
 
         final RecyclerView recRoom = v.findViewById(R.id.rooms_recycle);
         recRoom.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recRoom.setLayoutManager(layoutManager);
-        RoomListAdapter adapter = new RoomListAdapter(roomList);
+        adapter = new RoomListAdapter(roomList);
         recRoom.setAdapter(adapter);
 
         /*mapView = (MapView) v.findViewById(R.id.details_map);
@@ -150,13 +153,16 @@ public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
         //mapView.onResume();
+        roomList.clear();
+        roomList.addAll(currentEscape.getRoom());
+        adapter.notifyDataSetChanged();
     }
 
-    @Override
+    /*@Override
     public void onPause() {
         super.onPause();
         //mapView.onPause();
-    }
+    }*/
 
     /*@Override
     public void onSaveInstanceState(Bundle outState) {
@@ -169,11 +175,11 @@ public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
         mapView.onSaveInstanceState(mapViewBundle);
     }*/
 
-    @Override
+    /*@Override
     public void onLowMemory() {
         super.onLowMemory();
         //mapView.onLowMemory();
-    }
+    }*/
 
     @Override
     public void onDestroy() {

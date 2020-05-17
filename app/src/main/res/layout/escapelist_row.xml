@@ -11,10 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp">
+        android:layout_margin="5dp">
 
         <ImageView
             android:id="@+id/free_img"
@@ -28,16 +25,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:orientation="vertical"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="3dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="3dp"
-                android:layout_weight="0.95">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/name"
@@ -48,48 +42,40 @@
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:layout_gravity="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:textColor="@color/colorPrimary"/>
-
-                <TextView
-                    android:id="@+id/tags"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:layout_gravity="center"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:text="#horror #attori"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.05"
-                android:layout_marginTop="3dp">
+                    android:textStyle="bold"
+                    android:layout_toStartOf="@+id/room_count"/>
 
                 <TextView
                     android:id="@+id/room_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="5dp"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
-                    android:text="2 / 5"/>
+                    android:layout_alignParentEnd="true"/>
 
-            </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layout_gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layout_gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="@color/colorPrimary"
+                android:text="#horror #attori"/>
 
         </LinearLayout>
 

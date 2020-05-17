@@ -3,13 +3,16 @@ package com.stapp.trovaescape.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.google.maps.android.ui.IconGenerator;
 import com.stapp.trovaescape.BuildConfig;
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Constants;
+import com.stapp.trovaescape.data.Escape;
 import com.stapp.trovaescape.data.Room;
 
 import java.util.ArrayList;
@@ -20,18 +23,18 @@ public class Utils {
 
     public static boolean isFirstRun(Context context) {
 
-        final String PREFS_NAME = "PrefsFile";
+        //final String PREFS_NAME = "PrefsFile";
         final String PREF_VERSION_CODE_KEY = "version_code";
-        final int DOESNT_EXIST = -1;
+        //final int DOESNT_EXIST = -1;
 
         int currentVersionCode = BuildConfig.VERSION_CODE;
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
+        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS_NAME, MODE_PRIVATE);
+        int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, Constants.DOESNT_EXIST_INT);
 
         boolean firstRun = true;
         if (currentVersionCode == savedVersionCode)
             firstRun = false;
-        else if (savedVersionCode == DOESNT_EXIST)
+        else if (savedVersionCode == Constants.DOESNT_EXIST_INT)
             firstRun = true;
         else if (currentVersionCode > savedVersionCode)
             firstRun = false;
@@ -87,21 +90,45 @@ public class Utils {
         return t.toString();
     }
 
-    public static String getAvailsFormatted(Context context, String avails){
-        StringBuilder t = new StringBuilder();
+    public static String[] getAvailsFormatted(Context context, String avails){
+        //StringBuilder t = new StringBuilder();
         String[] availsArr = avails.split(Constants.FIELDS_SEP);
 
-        if(availsArr.length > 0) {
+        /*if(availsArr.length > 0) {
             if(!availsArr[0].equals("")) {
                 for (int i = 0; i < availsArr.length; i++) {
                     if (i != 0)
                         t.append("\n");
-                    t.append("  ");
+                    //t.append("  ");
                     t.append(availsArr[i]);
                 }
             }
         }
+        return t.toString();*/
+        return availsArr;
+    }
+
+    public static String getRoomsDoneRatio(Escape escape){
+        StringBuilder t = new StringBuilder();
+        int done = 0;
+        ArrayList<Room> rooms = escape.getRoom();
+        for(int i = 0; i < rooms.size(); i++){
+            if(rooms.get(i).getDone())
+                done++;
+        }
+        t.append(done);
+        t.append(" / ");
+        t.append(rooms.size());
+
         return t.toString();
+    }
+
+    public static Bitmap getHourItem(Context context, String hour){
+        IconGenerator hourItem = new IconGenerator(context);
+        hourItem.setTextAppearance(context, R.style.hourText);
+        hourItem.setBackground(context.getDrawable(R.drawable.hour_background));
+
+        return hourItem.makeIcon(hour);
     }
 
 }

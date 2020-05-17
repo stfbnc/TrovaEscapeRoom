@@ -8,6 +8,8 @@ public class Room {
     private String prices;
     private String availabilities;
     private String tags;
+    private boolean isFree;
+    private boolean isDone;
 
     public Room(){
         this.code = "";
@@ -16,6 +18,8 @@ public class Room {
         this.prices = "";
         this.availabilities = "";
         this.tags = "";
+        this.isFree = false;
+        this.isDone = false;
     }
 
     public void setCode(String code) { this.code = code; }
@@ -34,7 +38,11 @@ public class Room {
 
     public String getPrices() { return prices; }
 
-    public void setAvailabilities(String availabilities) { this.availabilities = availabilities; }
+    public void setAvailabilities(String availabilities) {
+        this.availabilities = availabilities;
+        if(!availabilities.equals(""))
+            setFree(true);
+    }
 
     public String getAvailabilities() { return availabilities; }
 
@@ -42,4 +50,11 @@ public class Room {
 
     public String getTags() { return tags; }
 
+    public void setFree(boolean isFree) { this.isFree = isFree; }
+
+    public boolean getFree() { return isFree; }
+
+    public void setDone(boolean isDone) { this.isDone = isDone; }
+
+    public boolean getDone() { return isDone; }
 }

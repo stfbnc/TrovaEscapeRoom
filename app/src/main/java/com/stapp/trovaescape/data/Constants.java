@@ -25,8 +25,12 @@ public class Constants {
     public static String ROOM_AVAIL = "AVAIL";
     public static String ROOM_CODE = "CODE";
 
-    public static String FIELDS_SEP = "\\|";
+    public static String FIELDS_SEP = "%";
 
     public static int DELAY = 60000;
 
+    public static String PREFS_NAME = "PrefsFile";
+    public static String DOESNT_EXIST_STR = "";
+    public static int DOESNT_EXIST_INT = -1;
+    public static String EXISTS = "DONE";
 }

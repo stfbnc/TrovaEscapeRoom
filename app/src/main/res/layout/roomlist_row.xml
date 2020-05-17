@@ -3,146 +3,196 @@
     android:id="@+id/roomlist_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical">
-    <!--android:background="@color/colorPrimary"-->
+    android:orientation="vertical"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp">
 
-    <LinearLayout
-        android:id="@+id/ll_room"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:weightSum="1">
-        <!--android:background="@drawable/room_background_green"-->
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="0.98">
+        <TextView
+            android:id="@+id/room_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/room_btn_size"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingStart="5dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_toStartOf="@id/escape_tick"/>
 
-            <TextView
-                android:id="@+id/room_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:paddingStart="5dp"
-                android:paddingEnd="10dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
+        <ImageButton
+            android:id="@+id/escape_tick"
+            android:layout_width="@dimen/room_btn_size"
+            android:layout_height="@dimen/room_btn_size"
+            android:layout_gravity="center"
+            android:background="@drawable/room_not_done"
+            android:layout_alignParentEnd="true"/>
 
-            <TextView
-                android:id="@+id/title_prices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:layout_gravity="center"
-                android:paddingStart="5dp"
-                android:paddingEnd="10dp"
-                android:layout_marginBottom="2dp"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:text="@string/prices_string"/>
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/room_prices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:layout_gravity="center"
-                android:paddingStart="5dp"
-                android:paddingEnd="10dp"
-                android:layout_marginBottom="2dp"
-                android:textColor="@color/colorPrimary"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
 
-            <TextView
-                android:id="@+id/title_avails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:layout_gravity="center"
-                android:paddingStart="5dp"
-                android:paddingEnd="10dp"
-                android:layout_marginBottom="2dp"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:text="@string/today_string"/>
+        <TextView
+            android:id="@+id/title_prices"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/room_btn_size"
+            android:gravity="start|bottom"
+            android:layout_gravity="center"
+            android:paddingStart="5dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:text="@string/prices_string"
+            android:layout_toStartOf="@id/book_btn"/>
 
-            <TextView
-                android:id="@+id/room_avails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:layout_gravity="center"
-                android:paddingStart="5dp"
-                android:paddingEnd="10dp"
-                android:layout_marginBottom="2dp"
-                android:textColor="@color/colorPrimary"/>
-
-            <!--TextView
-                android:id="@+id/tags"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:layout_gravity="center"
-                android:layout_marginStart="2dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="10dp"
-                android:textColor="@color/colorPrimary"/-->
-
-        </LinearLayout>
-
-        <!--Button
+        <ImageButton
             android:id="@+id/book_btn"
+            android:layout_width="@dimen/room_btn_size"
+            android:layout_height="@dimen/room_btn_size"
+            android:layout_gravity="center"
+            android:background="@drawable/book_room"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/room_prices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/title_avails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:text="@string/today_string"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp">
+
+        <ImageView
+            android:id="@+id/h1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/book_room"
-            android:layout_weight="0.15"
-            android:layout_gravity="center_vertical"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"/-->
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
 
-        <LinearLayout
-            android:layout_height="match_parent"
+        <ImageView
+            android:id="@+id/h2"
             android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="0.02">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
 
-            <ImageButton
-                android:id="@+id/escape_tick"
-                android:layout_width="@dimen/room_btn_size"
-                android:layout_height="@dimen/room_btn_size"
-                android:layout_gravity="center"
-                android:background="@drawable/room_not_done"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="7dp"/>
+        <ImageView
+            android:id="@+id/h3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
 
-            <ImageButton
-                android:id="@+id/book_btn"
-                android:layout_width="@dimen/room_btn_size"
-                android:layout_height="@dimen/room_btn_size"
-                android:layout_gravity="center"
-                android:background="@drawable/book_room"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="5dp"/>
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/h4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
-    <!--TextView
-        android:id="@+id/row_div"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorPrimary"/-->
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp">
+
+        <ImageView
+            android:id="@+id/h5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/h6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/h7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/h8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
+
+    </LinearLayout>
 
 </LinearLayout>

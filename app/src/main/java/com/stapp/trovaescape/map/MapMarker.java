@@ -21,12 +21,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.ui.IconGenerator;
 import com.stapp.trovaescape.R;
+import com.stapp.trovaescape.data.Escape;
+import com.stapp.trovaescape.utils.Utils;
 
 public class MapMarker {
 
-    private boolean freeRooms = false;
-    private String name = "";
-    private Context context = null;
+    //private boolean freeRooms = false;
+    //private String name = "";
+    private Escape escape;
+    private Context context;
 
     private int side = 10;
     private int outerCorner = 12;
@@ -36,14 +39,10 @@ public class MapMarker {
     private int w = 0;
     private int h = 0;
 
-    public MapMarker(boolean freeRooms, String name, Context context) {
-        this.freeRooms = freeRooms;
-        this.name = name;
-        this.context = context;
-    }
-
-    public MapMarker(boolean freeRooms, Context context) {
-        this.freeRooms = freeRooms;
+    public MapMarker(Escape escape, Context context){//boolean freeRooms, String name, Context context) {
+        //this.freeRooms = freeRooms;
+        //this.name = name;
+        this.escape = escape;
         this.context = context;
     }
 
@@ -81,17 +80,17 @@ public class MapMarker {
 
         IconGenerator marker = new IconGenerator(context);
         marker.setTextAppearance(context, R.style.markerText);
-        if(freeRooms)
+        if(escape.getFree())
             marker.setBackground(context.getDrawable(R.drawable.marker_background_green));
         else
             marker.setBackground(context.getDrawable(R.drawable.marker_background_red));
 
-        return marker.makeIcon(name + " \u25CF 2/5");
+        return marker.makeIcon(escape.getName() + " \u25CF " + Utils.getRoomsDoneRatio(escape));
     }
 
     public Bitmap getDefaultMarker(){
         Drawable drawable;
-        if(freeRooms)
+        if(escape.getFree())
             drawable = context.getDrawable(R.drawable.default_marker_green);
         else
             drawable = context.getDrawable(R.drawable.default_marker_red);

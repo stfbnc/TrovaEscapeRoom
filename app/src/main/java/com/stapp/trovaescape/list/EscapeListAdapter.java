@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Escape;
+import com.stapp.trovaescape.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -22,13 +23,14 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
     View.OnClickListener clickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, address, tags;
+        public TextView name, address, tags, count;
         public ImageView freeRooms;
         public ViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.name);
             address = v.findViewById(R.id.address);
             tags = v.findViewById(R.id.tags);
+            count = v.findViewById(R.id.room_count);
             freeRooms = v.findViewById(R.id.free_img);
         }
     }
@@ -54,16 +56,18 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
     public void onBindViewHolder(final EscapeListAdapter.ViewHolder holder, int position) {
         holder.itemView.setOnClickListener(clickListener);
         if(escapeList.size() > 0){
-            if(escapeList.get(position).getFree()) {
+            if(escapeList.get(position).getFree())
                 holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.escape_icon_green));
-                //holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.icon_lock_green_24dp));
-            }else{
+            else
                 holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.escape_icon_red));
-                //holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.icon_lock_red_24dp));
-            }
+
             holder.name.setText(escapeList.get(position).getName());
+
             holder.address.setText(escapeList.get(position).getAddress());
+
             //holder.tags.setText(escapeList.get(position).getAllTagsFormatted());
+
+            holder.count.setText(Utils.getRoomsDoneRatio(escapeList.get(position)));
         }
     }
 

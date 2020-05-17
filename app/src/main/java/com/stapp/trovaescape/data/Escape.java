@@ -1,11 +1,19 @@
 package com.stapp.trovaescape.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Escape {
 
+    private Context context;
     private String code;
     private String name;
     private String address;
@@ -15,7 +23,8 @@ public class Escape {
     private ArrayList<Room> rooms;
     private boolean isFree;
 
-    public Escape(){
+    public Escape(Context context){
+        this.context = context;
         this.code = "";
         this.name = "";
         this.address = "";
@@ -51,16 +60,32 @@ public class Escape {
     public LatLng getCoords() { return coords; }
 
     public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = rooms;
         for(int i = 0; i < rooms.size(); i++) {
             if(!rooms.get(i).getAvailabilities().equals("")) {
                 setFree(true);
                 break;
             }
         }
+        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS_NAME, MODE_PRIVATE);
+        for(int i = 0; i < rooms.size(); i++){
+            if(prefs.getString(rooms.get(i).getCode(), Constants.DOESNT_EXIST_STR).equals(Constants.DOESNT_EXIST_STR)){
+                rooms.get(i).setDone(false);
+            }else{
+                rooms.get(i).setDone(true);
+            }
+        }
+        this.rooms = rooms;
     }
 
-    public ArrayList<Room> getRoom() { return rooms; }
+    public ArrayList<Room> getRoom() {
+        Collections.sort(rooms, new Comparator<Room>() {
+            @Override
+            public int compare(Room r1, Room r2) {
+                return r1.getName().compareToIgnoreCase(r2.getName());
+            }
+        });
+        return rooms;
+    }
 
     public void setFree(boolean isFree) { this.isFree = isFree; }
 

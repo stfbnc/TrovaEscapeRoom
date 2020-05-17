@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         if(bottomNavigation.getVisibility() == View.GONE && !EscapeDetails.isOpen){
             bottomNavigation.setVisibility(View.VISIBLE);
         }
+        setListAndMap();
     }
 
     @Override
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         if(bottomNavigation.getVisibility() == View.GONE && !EscapeDetails.isOpen){
             bottomNavigation.setVisibility(View.VISIBLE);
         }
+        setListAndMap();
     }
 
     public void checkForData(final DataRetriever dr, final DataManager dm){
@@ -144,10 +146,7 @@ public class MainActivity extends AppCompatActivity {
                                             if (escapes.size() > 0) {
                                                 dm.updateDbTime(ltu);
                                                 dm.fillDb(escapes);
-                                                ((ListFragment) listFragment).getEscapeList(filter);
-                                                MapFragment mf = ((MapFragment) mapFragment);
-                                                if(mf.mMap != null)
-                                                    mf.onMapReady(mf.mMap);
+                                                setListAndMap();
                                             }
                                         }
                                     }
@@ -162,6 +161,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setListAndMap(){
+        ((ListFragment) listFragment).getEscapeList(filter);
+        MapFragment mf = ((MapFragment) mapFragment);
+        if(mf.mMap != null)
+            mf.onMapReady(mf.mMap);
     }
 
 }

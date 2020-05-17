@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DataManager {
 
     private SQLiteDatabase db;
-    //private Context context;
+    private Context context;
 
     // db escape table columns
     public static final String ESCAPE_TAB_ID = "ID"; // id
@@ -64,7 +64,7 @@ public class DataManager {
     private static final String LTU_TAB = "LTU_TAB"; // table with last time update info
 
     public DataManager(Context context){
-        //this.context = context;
+        this.context = context;
         CustomSQLiteOpenHelper helper = new CustomSQLiteOpenHelper(context);
         db = helper.getWritableDatabase();
     }
@@ -163,7 +163,7 @@ public class DataManager {
         Cursor c = db.rawQuery(query,null);
         if(c.moveToFirst()) {
             do {
-                Escape e = new Escape();
+                Escape e = new Escape(context);
                 e.setName(c.getString(ESCAPE_TAB_NAME_IDX));
                 e.setAddress(c.getString(ESCAPE_TAB_ADDRESS_IDX));
                 e.setPhone(c.getString(ESCAPE_TAB_PHONE_IDX));
