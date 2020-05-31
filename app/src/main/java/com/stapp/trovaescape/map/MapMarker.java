@@ -85,7 +85,7 @@ public class MapMarker {
         else
             marker.setBackground(context.getDrawable(R.drawable.marker_background_red));
 
-        return marker.makeIcon(escape.getName() + " \u25CF " + Utils.getRoomsDoneRatio(escape));
+        return marker.makeIcon(escape.getShortName() + " \u25CF " + Utils.getRoomsDoneRatio(escape));
     }
 
     public Bitmap getDefaultMarker(){
@@ -101,7 +101,7 @@ public class MapMarker {
         return bmp;
     }
 
-    private void setMarkerSize(int width, int height){
+    /*private void setMarkerSize(int width, int height){
         int wTextMargin = 5;
         int hTextMargin = 8;
 
@@ -110,6 +110,6 @@ public class MapMarker {
 
         xText = side + wTextMargin;
         yText = side + hTextMargin + height;
-    }
+    }*/
 
 }

@@ -16,6 +16,7 @@ public class Escape {
     private Context context;
     private String code;
     private String name;
+    private String shortName;
     private String address;
     private String phone;
     private String website;
@@ -27,6 +28,7 @@ public class Escape {
         this.context = context;
         this.code = "";
         this.name = "";
+        this.shortName = "";
         this.address = "";
         this.phone = "";
         this.website = "";
@@ -42,6 +44,10 @@ public class Escape {
     public void setName(String name) { this.name = name; }
 
     public String getName() { return name; }
+
+    public void setShortName(String shortName) { this.shortName = shortName; }
+
+    public String getShortName() { return shortName; }
 
     public void setAddress(String address) { this.address = address; }
 

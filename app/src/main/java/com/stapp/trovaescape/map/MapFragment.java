@@ -116,51 +116,56 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.clear();
         escapeList.clear();
         markersCoords.clear();
         DataManager dm = new DataManager(getContext());
         escapeList.addAll(dm.getEscapes(MainActivity.filter));
         Log.d("AAAA", MainActivity.filter);
-        for(int i = 0; i < escapeList.size(); i++)
-            markersCoords.put(escapeList.get(i).getCoords(), escapeList.get(i));
+        if(escapeList.size() > 0) {
+            for (int i = 0; i < escapeList.size(); i++)
+                markersCoords.put(escapeList.get(i).getCoords(), escapeList.get(i));
 
-        //float color;
-        ArrayList<Marker> markersList = new ArrayList<>();
-        //for(int i = 0; i < markersCoords.size(); i++){
-        for(LatLng coords : markersCoords.keySet()){
-            /*if(markersCoords.get(coords).getFree())
-                color = BitmapDescriptorFactory.HUE_GREEN;
-            else
-                color = BitmapDescriptorFactory.HUE_RED;*/
-            //markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
-            //                    .icon(BitmapDescriptorFactory.defaultMarker(color))));
-            MapMarker mapMarker = new MapMarker(markersCoords.get(coords), getContext());
-            markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
-                                .icon(BitmapDescriptorFactory.fromBitmap(mapMarker.getMarker()))));
-        }
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (Marker marker : markersList) {
-            builder.include(marker.getPosition());
-        }
-        final LatLngBounds bounds = builder.build();
-        //LinearLayout mapLayout = getView().findViewById(R.id.map_layout);
-        //mapLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-        //    @Override
-        //    public void onGlobalLayout() {
-        int width = getResources().getDisplayMetrics().widthPixels;
-        int height = getResources().getDisplayMetrics().heightPixels;
-        //int minMetric = Math.min(width, height);
-        //int padding = (int) (minMetric * 10);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, 80));
-        //    }
-        //});
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                openDetails(marker);
-                return true;
+            //float color;
+            ArrayList<Marker> markersList = new ArrayList<>();
+            //for(int i = 0; i < markersCoords.size(); i++){
+            for (LatLng coords : markersCoords.keySet()) {
+                /*if(markersCoords.get(coords).getFree())
+                    color = BitmapDescriptorFactory.HUE_GREEN;
+                else
+                    color = BitmapDescriptorFactory.HUE_RED;*/
+                //markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
+                //                    .icon(BitmapDescriptorFactory.defaultMarker(color))));
+                MapMarker mapMarker = new MapMarker(markersCoords.get(coords), getContext());
+                markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
+                        .icon(BitmapDescriptorFactory.fromBitmap(mapMarker.getMarker()))));
             }
-        });
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (Marker marker : markersList) {
+                builder.include(marker.getPosition());
+            }
+            final LatLngBounds bounds = builder.build();
+            //LinearLayout mapLayout = getView().findViewById(R.id.map_layout);
+            //mapLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            //    @Override
+            //    public void onGlobalLayout() {
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            //int minMetric = Math.min(width, height);
+            //int padding = (int) (minMetric * 10);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, 80));
+            //    }
+            //});
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    openDetails(marker);
+                    return true;
+                }
+            });
+        }else{
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.9109, 12.4818), 10));
+        }
     }
 
     @Override

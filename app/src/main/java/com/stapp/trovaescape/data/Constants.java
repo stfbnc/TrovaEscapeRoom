@@ -17,6 +17,7 @@ public class Constants {
     public static String ESCAPE_LAT = "LAT";
     public static String ESCAPE_LON = "LON";
     public static String ESCAPE_CODE = "CODE";
+    public static String ESCAPE_SHORT_NAME = "SHORT_NAME";
 
     public static String ROOM_SECTION = "ROOMS";
     public static String ROOM_NAME = "NAME";
@@ -26,6 +27,7 @@ public class Constants {
     public static String ROOM_CODE = "CODE";
 
     public static String FIELDS_SEP = "%";
+    public static String PHONES_SEP = " - ";
 
     public static int DELAY = 60000;
 

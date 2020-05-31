@@ -7,11 +7,14 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,12 +30,14 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.stapp.trovaescape.R;
+import com.stapp.trovaescape.data.Constants;
 import com.stapp.trovaescape.data.Escape;
 import com.stapp.trovaescape.data.Room;
 import com.stapp.trovaescape.map.MapMarker;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
 
@@ -69,8 +74,24 @@ public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
         imPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + currentEscape.getPhone()));
-                startActivity(i);
+                String[] tels = currentEscape.getPhone().split(Constants.PHONES_SEP);
+                if(tels.length > 1) {
+                    PopupMenu popupMenu = new PopupMenu(Objects.requireNonNull(getContext()), v);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + item.getTitle().toString()));
+                            startActivity(i);
+                            return true;
+                        }
+                    });
+                    for (int t = 0; t < tels.length; t++)
+                        popupMenu.getMenu().add(1, t, t, tels[t]);
+                    popupMenu.show();
+                } else {
+                    Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + currentEscape.getPhone()));
+                    startActivity(i);
+                }
             }
         });
 

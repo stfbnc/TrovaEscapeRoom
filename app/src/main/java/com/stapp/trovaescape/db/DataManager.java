@@ -27,6 +27,7 @@ public class DataManager {
     public static final String ESCAPE_TAB_LAT = "LAT"; // latitude
     public static final String ESCAPE_TAB_LON = "LON"; // longitude
     public static final String ESCAPE_TAB_CODE = "CODE"; // code identifier
+    public static final String ESCAPE_TAB_SHORT_NAME = "SHORT_NAME"; // short name
     public static final int ESCAPE_TAB_ID_IDX = 0;
     public static final int ESCAPE_TAB_NAME_IDX = 1;
     public static final int ESCAPE_TAB_ADDRESS_IDX = 2;
@@ -35,6 +36,7 @@ public class DataManager {
     public static final int ESCAPE_TAB_LAT_IDX = 5;
     public static final int ESCAPE_TAB_LON_IDX = 6;
     public static final int ESCAPE_TAB_CODE_IDX = 7;
+    public static final int ESCAPE_TAB_SHORT_NAME_IDX = 8;
 
     // db room table columns
     public static final String ROOM_TAB_ID = "ID"; // id
@@ -124,14 +126,16 @@ public class DataManager {
                 ESCAPE_TAB_WEBSITE + ", " +
                 ESCAPE_TAB_LAT + ", " +
                 ESCAPE_TAB_LON + ", " +
-                ESCAPE_TAB_CODE + ") " +
+                ESCAPE_TAB_CODE + ", " +
+                ESCAPE_TAB_SHORT_NAME + ") " +
                 "VALUES ('" + e.getName() + "', " +
                 "'" + e.getAddress() + "', " +
                 "'" + e.getPhone() + "', " +
                 "'" + e.getWebsite() + "', " +
                 e.getCoords().latitude + ", " +
                 e.getCoords().longitude + ", " +
-                "'" + e.getCode() + "');";
+                "'" + e.getCode() + "', " +
+                "'" + e.getShortName() + "');";
         Log.i("fillDbWithEscape() = ", query);
         db.execSQL(query);
     }
@@ -165,6 +169,7 @@ public class DataManager {
             do {
                 Escape e = new Escape(context);
                 e.setName(c.getString(ESCAPE_TAB_NAME_IDX));
+                e.setShortName(c.getString(ESCAPE_TAB_SHORT_NAME_IDX));
                 e.setAddress(c.getString(ESCAPE_TAB_ADDRESS_IDX));
                 e.setPhone(c.getString(ESCAPE_TAB_PHONE_IDX));
                 e.setWebsite(c.getString(ESCAPE_TAB_WEBSITE_IDX));
@@ -181,7 +186,7 @@ public class DataManager {
     public ArrayList<Room> getEscapeRooms(String escapeId){
         ArrayList<Room> rooms = new ArrayList<>();
         String query = "SELECT * FROM " + ROOM_TAB + " WHERE " + ROOM_TAB_CODE +
-                       " LIKE '" + escapeId + "%' ORDER BY " + ROOM_TAB_NAME;
+                       " LIKE '" + escapeId + "_R%' ORDER BY " + ROOM_TAB_NAME;
         Cursor c = db.rawQuery(query,null);
         if(c.moveToFirst()) {
             do {
@@ -214,7 +219,8 @@ public class DataManager {
                     ESCAPE_TAB_WEBSITE + " TEXT NOT NULL, " +
                     ESCAPE_TAB_LAT + " REAL NOT NULL, " +
                     ESCAPE_TAB_LON + " REAL NOT NULL, " +
-                    ESCAPE_TAB_CODE + " TEXT NOT NULL);";
+                    ESCAPE_TAB_CODE + " TEXT NOT NULL, " +
+                    ESCAPE_TAB_SHORT_NAME + " TEXT NOT NULL);";
             db.execSQL(escapeTable);
 
             String roomTable = "CREATE TABLE " + ROOM_TAB +
