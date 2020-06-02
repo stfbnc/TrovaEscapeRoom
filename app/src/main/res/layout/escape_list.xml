@@ -13,19 +13,21 @@
         android:id="@+id/main_linear"
         android:orientation="vertical">
 
-        <LinearLayout
+        <!--LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" >
+            android:layout_marginBottom="5dp"
+            android:weightSum="1">
 
             <ImageView
                 android:id="@+id/search_img"
                 android:layout_width="@dimen/img_box_size_searchbar"
                 android:layout_height="@dimen/img_box_size_searchbar"
+                android:layout_weight="0.05"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
@@ -36,13 +38,70 @@
                 android:id="@+id/search_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.9"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:gravity="start"
                 android:textColor="@color/colorPrimary"
                 android:layout_gravity="center_vertical"
                 android:inputType="text"/>
 
-        </LinearLayout>
+            <ImageButton
+                android:layout_width="@dimen/img_box_size_searchbar"
+                android:layout_height="@dimen/img_box_size_searchbar"
+                android:layout_weight="0.05"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@drawable/filter_icon"/>
+
+        </LinearLayout-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <ImageView
+                android:id="@+id/search_img"
+                android:layout_width="@dimen/img_box_size_searchbar"
+                android:layout_height="@dimen/img_box_size_searchbar"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_search_24dp"/>
+
+            <EditText
+                android:id="@+id/search_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:layout_toEndOf="@+id/search_img"
+                android:layout_toStartOf="@+id/filter"
+                android:inputType="text"/>
+
+            <ImageButton
+                android:id="@+id/filter"
+                android:layout_width="@dimen/details_btn_size"
+                android:layout_height="@dimen/details_btn_size"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@drawable/filter_button_icon"/>
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/list_div"

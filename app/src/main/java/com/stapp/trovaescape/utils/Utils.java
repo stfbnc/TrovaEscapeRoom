@@ -17,6 +17,7 @@ import com.stapp.trovaescape.data.Room;
 
 import java.util.ArrayList;
 
+import static android.content.Context.CONSUMER_IR_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Utils {
@@ -50,7 +51,7 @@ public class Utils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public String getAllTagsFormatted(ArrayList<Room> rooms){
+    /*public String getAllTagsFormatted(ArrayList<Room> rooms){
         StringBuilder t = new StringBuilder();
         for(int i = 0; i < rooms.size(); i++) {
             t.append(getTagsFormatted(rooms.get(i).getTags()));
@@ -58,19 +59,20 @@ public class Utils {
                 t.append(" ");
         }
         return t.toString();
-    }
+    }*/
 
-    public String getTagsFormatted(String tags){
-        StringBuilder t = new StringBuilder();
+    public static String[] getTagsFormatted(String tags){
+        //StringBuilder t = new StringBuilder();
         String[] tagsArr = tags.split(Constants.FIELDS_SEP);
 
-        for(int i = 0; i < tagsArr.length; i++){
+        /*for(int i = 0; i < tagsArr.length; i++){
             if(i != 0)
                 t.append(" ");
             t.append("#");
             t.append(tagsArr[i]);
         }
-        return t.toString();
+        return t.toString();*/
+        return tagsArr;
     }
 
     public static String getPricesFormatted(Context context, String prices){
@@ -129,6 +131,23 @@ public class Utils {
         hourItem.setBackground(context.getDrawable(R.drawable.hour_background));
 
         return hourItem.makeIcon(hour);
+    }
+
+    public static Bitmap getTagItem(Context context, String tag){
+        IconGenerator tagItem = new IconGenerator(context);
+        tagItem.setTextAppearance(context, R.style.tagText);
+        if(tag.equals(Constants.HORROR_TAG))
+            tagItem.setBackground(context.getDrawable(R.drawable.red_background));
+        else if(tag.equals(Constants.ACTORS_TAG))
+            tagItem.setBackground(context.getDrawable(R.drawable.pink_background));
+        else if(tag.equals(Constants.ADVENTURE_TAG))
+            tagItem.setBackground(context.getDrawable(R.drawable.green_background));
+        else if(tag.equals(Constants.MISTERY_TAG))
+            tagItem.setBackground(context.getDrawable(R.drawable.yellow_background));
+        else
+            tagItem.setBackground(context.getDrawable(R.drawable.yellow_background));
+
+        return tagItem.makeIcon("#"+tag);
     }
 
 }

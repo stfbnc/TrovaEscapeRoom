@@ -21,6 +21,7 @@ public class Escape {
     private String phone;
     private String website;
     private LatLng coords;
+    private String tags;
     private ArrayList<Room> rooms;
     private boolean isFree;
 
@@ -64,6 +65,10 @@ public class Escape {
     public void setCoords(LatLng coords) { this.coords = coords; }
 
     public LatLng getCoords() { return coords; }
+
+    public void setTags(String tags) { this.tags = tags; }
+
+    public String getTags() { return tags; }
 
     public void setRooms(ArrayList<Room> rooms) {
         for(int i = 0; i < rooms.size(); i++) {

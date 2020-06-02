@@ -120,6 +120,7 @@ public class DataRetriever implements VolleyResponseListener {
                 escape.setPhone(eObj.getString(Constants.ESCAPE_PHONE));
                 escape.setWebsite(eObj.getString(Constants.ESCAPE_WEBSITE));
                 escape.setCoords(new LatLng(eObj.getDouble(Constants.ESCAPE_LAT), eObj.getDouble(Constants.ESCAPE_LON)));
+                escape.setTags(eObj.getString(Constants.ESCAPE_TAGS));
                 escape.setCode(eObj.getString(Constants.ESCAPE_CODE));
 
                 ArrayList<Room> r = new ArrayList<>();

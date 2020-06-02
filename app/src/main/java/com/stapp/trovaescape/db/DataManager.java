@@ -28,6 +28,7 @@ public class DataManager {
     public static final String ESCAPE_TAB_LON = "LON"; // longitude
     public static final String ESCAPE_TAB_CODE = "CODE"; // code identifier
     public static final String ESCAPE_TAB_SHORT_NAME = "SHORT_NAME"; // short name
+    public static final String ESCAPE_TAB_TAGS = "TAGS"; // tags
     public static final int ESCAPE_TAB_ID_IDX = 0;
     public static final int ESCAPE_TAB_NAME_IDX = 1;
     public static final int ESCAPE_TAB_ADDRESS_IDX = 2;
@@ -37,6 +38,7 @@ public class DataManager {
     public static final int ESCAPE_TAB_LON_IDX = 6;
     public static final int ESCAPE_TAB_CODE_IDX = 7;
     public static final int ESCAPE_TAB_SHORT_NAME_IDX = 8;
+    public static final int ESCAPE_TAB_TAGS_IDX = 9;
 
     // db room table columns
     public static final String ROOM_TAB_ID = "ID"; // id
@@ -127,7 +129,8 @@ public class DataManager {
                 ESCAPE_TAB_LAT + ", " +
                 ESCAPE_TAB_LON + ", " +
                 ESCAPE_TAB_CODE + ", " +
-                ESCAPE_TAB_SHORT_NAME + ") " +
+                ESCAPE_TAB_SHORT_NAME + ", " +
+                ESCAPE_TAB_TAGS + ") " +
                 "VALUES ('" + e.getName() + "', " +
                 "'" + e.getAddress() + "', " +
                 "'" + e.getPhone() + "', " +
@@ -135,7 +138,8 @@ public class DataManager {
                 e.getCoords().latitude + ", " +
                 e.getCoords().longitude + ", " +
                 "'" + e.getCode() + "', " +
-                "'" + e.getShortName() + "');";
+                "'" + e.getShortName() + "', " +
+                "'" + e.getTags() + "');";
         Log.i("fillDbWithEscape() = ", query);
         db.execSQL(query);
     }
@@ -175,6 +179,7 @@ public class DataManager {
                 e.setWebsite(c.getString(ESCAPE_TAB_WEBSITE_IDX));
                 e.setCode(c.getString(ESCAPE_TAB_CODE_IDX));
                 e.setCoords(new LatLng(c.getDouble(ESCAPE_TAB_LAT_IDX), c.getDouble(ESCAPE_TAB_LON_IDX)));
+                e.setTags(c.getString(ESCAPE_TAB_TAGS_IDX));
                 e.setRooms(getEscapeRooms(e.getCode()));
                 escapes.add(e);
             } while(c.moveToNext());
@@ -220,7 +225,8 @@ public class DataManager {
                     ESCAPE_TAB_LAT + " REAL NOT NULL, " +
                     ESCAPE_TAB_LON + " REAL NOT NULL, " +
                     ESCAPE_TAB_CODE + " TEXT NOT NULL, " +
-                    ESCAPE_TAB_SHORT_NAME + " TEXT NOT NULL);";
+                    ESCAPE_TAB_SHORT_NAME + " TEXT NOT NULL, " +
+                    ESCAPE_TAB_TAGS + " TEXT NOT NULL);";
             db.execSQL(escapeTable);
 
             String roomTable = "CREATE TABLE " + ROOM_TAB +

@@ -66,7 +66,7 @@
                 android:paddingEnd="5dp"
                 android:textColor="@color/colorPrimary"/>
 
-            <TextView
+            <!--TextView
                 android:id="@+id/tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,7 +75,49 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:textColor="@color/colorPrimary"
-                android:text="#horror #attori"/>
+                android:text="#horror #attori"/-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp">
+
+                <ImageView
+                    android:id="@+id/t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/t3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

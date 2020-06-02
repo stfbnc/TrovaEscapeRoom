@@ -41,7 +41,7 @@ import java.util.Objects;
 
 public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
 
-    // TODO: box per gli orari e i tag
+    // TODO: problema apostrofo sul db
     // TODO: filtro
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
