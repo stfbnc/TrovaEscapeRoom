@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,6 +69,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
         this.clickListener = clickListener;
     }
 
+    @NonNull
     @Override
     public RoomListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ctx = parent.getContext();
@@ -78,7 +80,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final RoomListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RoomListAdapter.ViewHolder holder, int position) {
         //holder.itemView.setOnClickListener(clickListener);
         if(roomList.size() > 0){
             if(roomList.get(position).getFree())//.getAvailabilities().equals(""))

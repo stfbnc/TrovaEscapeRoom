@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -38,6 +39,7 @@ import com.stapp.trovaescape.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -89,7 +91,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        mapView = (MapView) v.findViewById(R.id.map);
+        mapView = v.findViewById(R.id.map);
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
@@ -151,9 +153,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             //    public void onGlobalLayout() {
             int width = getResources().getDisplayMetrics().widthPixels;
             int height = getResources().getDisplayMetrics().heightPixels;
-            //int minMetric = Math.min(width, height);
-            //int padding = (int) (minMetric * 10);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, 80));
+            int minMetric = Math.max(width, height);
+            int padding = 80;
+            if(!MainActivity.filter.equals(""))
+                padding = (int)(minMetric * 0.2);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
             //    }
             //});
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -195,7 +199,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Bundle mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY);
         if (mapViewBundle == null) {
@@ -224,7 +228,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     public void openDetails(Marker marker){
         try {
-            FragmentManager manager = getActivity().getSupportFragmentManager();//getChildFragmentManager();
+            FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();//getChildFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.main_frame_layout, new EscapeDetails(markersCoords.get(marker.getPosition())),
                                 ESCAPE_DETAILS_FRAGMENT);

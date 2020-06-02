@@ -16,6 +16,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +42,6 @@ import java.util.Objects;
 
 public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
 
-    // TODO: problema apostrofo sul db
     // TODO: filtro
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
@@ -63,7 +63,7 @@ public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.escape_details, container, false);
 

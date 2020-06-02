@@ -164,19 +164,27 @@ public class DataManager {
     }
 
     public ArrayList<Escape> getEscapes(String str){
+        //Log.d("DB STR 1", str);
         ArrayList<Escape> escapes = new ArrayList<>();
         String query = "SELECT * FROM " + ESCAPE_TAB;
-        if(!str.equals(""))
-            query += " WHERE LOWER(" + ESCAPE_TAB_NAME + ") LIKE '%" + str.toLowerCase() + "%'";
+        if(!str.equals("")) {
+            if(str.startsWith("#")) {
+                query += " WHERE LOWER(" + ESCAPE_TAB_TAGS + ") LIKE '%" + str.substring(1).toLowerCase() + "%'";
+                //Log.d("DB STR 2", query);
+            }else {
+                query += " WHERE LOWER(" + ESCAPE_TAB_NAME + ") LIKE '%" + str.toLowerCase() + "%'";
+                //Log.d("DB STR 3", query);
+            }
+        }
         Cursor c = db.rawQuery(query,null);
         if(c.moveToFirst()) {
             do {
                 Escape e = new Escape(context);
-                e.setName(c.getString(ESCAPE_TAB_NAME_IDX));
-                e.setShortName(c.getString(ESCAPE_TAB_SHORT_NAME_IDX));
-                e.setAddress(c.getString(ESCAPE_TAB_ADDRESS_IDX));
+                e.setName(c.getString(ESCAPE_TAB_NAME_IDX).replace("\"", "'"));
+                e.setShortName(c.getString(ESCAPE_TAB_SHORT_NAME_IDX).replace("\"", "'"));
+                e.setAddress(c.getString(ESCAPE_TAB_ADDRESS_IDX).replace("\"", "'"));
                 e.setPhone(c.getString(ESCAPE_TAB_PHONE_IDX));
-                e.setWebsite(c.getString(ESCAPE_TAB_WEBSITE_IDX));
+                e.setWebsite(c.getString(ESCAPE_TAB_WEBSITE_IDX).replace("\"", "'"));
                 e.setCode(c.getString(ESCAPE_TAB_CODE_IDX));
                 e.setCoords(new LatLng(c.getDouble(ESCAPE_TAB_LAT_IDX), c.getDouble(ESCAPE_TAB_LON_IDX)));
                 e.setTags(c.getString(ESCAPE_TAB_TAGS_IDX));
@@ -196,8 +204,8 @@ public class DataManager {
         if(c.moveToFirst()) {
             do {
                 Room r = new Room();
-                r.setName(c.getString(ROOM_TAB_NAME_IDX));
-                r.setWebsite(c.getString(ROOM_TAB_WEBSITE_IDX));
+                r.setName(c.getString(ROOM_TAB_NAME_IDX).replace("\"", "'"));
+                r.setWebsite(c.getString(ROOM_TAB_WEBSITE_IDX).replace("\"", "'"));
                 r.setPrices(c.getString(ROOM_TAB_PRICES_IDX));
                 r.setAvailabilities(c.getString(ROOM_TAB_AVAIL_IDX));
                 r.setCode(c.getString(ROOM_TAB_CODE_IDX));
@@ -208,7 +216,7 @@ public class DataManager {
         return rooms;
     }
 
-    private class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
+    private static class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
 
         public CustomSQLiteOpenHelper(Context context){
             super(context, DB_NAME, null, DB_VERSION);

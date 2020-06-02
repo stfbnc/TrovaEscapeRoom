@@ -114,11 +114,11 @@ public class DataRetriever implements VolleyResponseListener {
             for(int i = 0; i < escapesArr.length(); i++){
                 JSONObject eObj = escapesArr.getJSONObject(i);
                 Escape escape = new Escape(context);
-                escape.setName(eObj.getString(Constants.ESCAPE_NAME));
-                escape.setShortName(eObj.getString(Constants.ESCAPE_SHORT_NAME));
-                escape.setAddress(eObj.getString(Constants.ESCAPE_ADDRESS));
+                escape.setName(eObj.getString(Constants.ESCAPE_NAME).replace("'", "\""));
+                escape.setShortName(eObj.getString(Constants.ESCAPE_SHORT_NAME).replace("'", "\""));
+                escape.setAddress(eObj.getString(Constants.ESCAPE_ADDRESS).replace("'", "\""));
                 escape.setPhone(eObj.getString(Constants.ESCAPE_PHONE));
-                escape.setWebsite(eObj.getString(Constants.ESCAPE_WEBSITE));
+                escape.setWebsite(eObj.getString(Constants.ESCAPE_WEBSITE).replace("'", "\""));
                 escape.setCoords(new LatLng(eObj.getDouble(Constants.ESCAPE_LAT), eObj.getDouble(Constants.ESCAPE_LON)));
                 escape.setTags(eObj.getString(Constants.ESCAPE_TAGS));
                 escape.setCode(eObj.getString(Constants.ESCAPE_CODE));
@@ -128,8 +128,8 @@ public class DataRetriever implements VolleyResponseListener {
                 for(int j = 0; j < roomArr.length(); j++){
                     JSONObject rObj = roomArr.getJSONObject(j);
                     Room room = new Room();
-                    room.setName(rObj.getString(Constants.ROOM_NAME));
-                    room.setWebsite(rObj.getString(Constants.ROOM_WEBSITE));
+                    room.setName(rObj.getString(Constants.ROOM_NAME).replace("'", "\""));
+                    room.setWebsite(rObj.getString(Constants.ROOM_WEBSITE).replace("'", "\""));
                     room.setPrices(rObj.getString(Constants.ROOM_PRICES));
                     room.setAvailabilities(rObj.getString(Constants.ROOM_AVAIL));
                     room.setCode(rObj.getString(Constants.ROOM_CODE));

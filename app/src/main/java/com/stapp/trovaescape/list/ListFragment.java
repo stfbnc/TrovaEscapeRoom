@@ -25,6 +25,7 @@ import com.stapp.trovaescape.details.EscapeDetails;
 import com.stapp.trovaescape.main.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ListFragment extends Fragment {
 
@@ -116,7 +117,7 @@ public class ListFragment extends Fragment {
 
     private void openDetails(int pos){
         try {
-            FragmentManager manager = getActivity().getSupportFragmentManager();//getChildFragmentManager();
+            FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();//getChildFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.main_frame_layout, new EscapeDetails(escapeList.get(pos)), ESCAPE_DETAILS_FRAGMENT);
             transaction.addToBackStack(null);

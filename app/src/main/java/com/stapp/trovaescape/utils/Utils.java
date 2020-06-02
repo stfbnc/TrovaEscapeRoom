@@ -35,8 +35,6 @@ public class Utils {
         boolean firstRun = true;
         if (currentVersionCode == savedVersionCode)
             firstRun = false;
-        else if (savedVersionCode == Constants.DOESNT_EXIST_INT)
-            firstRun = true;
         else if (currentVersionCode > savedVersionCode)
             firstRun = false;
 
@@ -63,7 +61,7 @@ public class Utils {
 
     public static String[] getTagsFormatted(String tags){
         //StringBuilder t = new StringBuilder();
-        String[] tagsArr = tags.split(Constants.FIELDS_SEP);
+        //String[] tagsArr = tags.split(Constants.FIELDS_SEP);
 
         /*for(int i = 0; i < tagsArr.length; i++){
             if(i != 0)
@@ -72,7 +70,7 @@ public class Utils {
             t.append(tagsArr[i]);
         }
         return t.toString();*/
-        return tagsArr;
+        return tags.split(Constants.FIELDS_SEP);
     }
 
     public static String getPricesFormatted(Context context, String prices){
@@ -94,7 +92,7 @@ public class Utils {
 
     public static String[] getAvailsFormatted(Context context, String avails){
         //StringBuilder t = new StringBuilder();
-        String[] availsArr = avails.split(Constants.FIELDS_SEP);
+        //String[] availsArr = avails.split(Constants.FIELDS_SEP);
 
         /*if(availsArr.length > 0) {
             if(!availsArr[0].equals("")) {
@@ -107,7 +105,7 @@ public class Utils {
             }
         }
         return t.toString();*/
-        return availsArr;
+        return avails.split(Constants.FIELDS_SEP);
     }
 
     public static String getRoomsDoneRatio(Escape escape){

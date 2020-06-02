@@ -2,12 +2,14 @@ package com.stapp.trovaescape.list;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +51,7 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
         this.clickListener = clickListener;
     }
 
+    @NonNull
     @Override
     public EscapeListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ctx = parent.getContext();
@@ -75,14 +78,20 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
 
             holder.count.setText(Utils.getRoomsDoneRatio(escapeList.get(position)));
 
-            String[] tg = Utils.getTagsFormatted(escapeList.get(position).getTags());
+            String[] tg = Utils.getTagsFormatted(escapeList.get(holder.getAdapterPosition()).getTags());
+            //Log.d("NAME", escapeList.get(position).getName());
             for(int i = 0; i < tg.length; i++) {
+                //Log.d("TAGS", tg[i]);
                 if(i >= Constants.MAX_TAGS)
                     break;
                 ImageView iv = holder.tags.get(i);
                 iv.setVisibility(View.VISIBLE);
                 Bitmap t = Utils.getTagItem(ctx, tg[i]);
                 iv.setImageBitmap(t);
+            }
+            for(int i = tg.length; i < Constants.MAX_TAGS; i++) {
+                ImageView iv = holder.tags.get(i);
+                iv.setVisibility(View.GONE);
             }
         }
     }

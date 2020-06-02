@@ -76,7 +76,7 @@ public class SplashScreen extends FragmentActivity {
 
                         // get data
                         if(!ltu.equals(Constants.NULL_TIME)){
-                            if(Long.valueOf(ltu) > Long.valueOf(dbTime)) {
+                            if(Long.parseLong(ltu) > Long.parseLong(dbTime)) {
                                 dataRetriever.sendJsonRequest(rs, Constants.DATA_URL, new VolleyResponseListener() {
                                     @Override
                                     public void onErrorResponse(String message) {

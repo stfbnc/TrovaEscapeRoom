@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // get data
                         if(!ltu.equals(Constants.NULL_TIME)){
-                            if(Long.valueOf(ltu) > Long.valueOf(dbTime)) {
+                            if(Long.parseLong(ltu) > Long.parseLong(dbTime)) {
                                 dr.sendJsonRequest(rs, Constants.DATA_URL, new VolleyResponseListener() {
                                     @Override
                                     public void onErrorResponse(String message) {

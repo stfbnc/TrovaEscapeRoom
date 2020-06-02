@@ -94,11 +94,15 @@ public class MapMarker {
             drawable = context.getDrawable(R.drawable.default_marker_green);
         else
             drawable = context.getDrawable(R.drawable.default_marker_red);
-        Bitmap bmp = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bmp);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-        drawable.draw(canvas);
-        return bmp;
+        if(drawable != null) {
+            Bitmap bmp = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            drawable.draw(canvas);
+            return bmp;
+        }else{
+            return null;
+        }
     }
 
     /*private void setMarkerSize(int width, int height){
