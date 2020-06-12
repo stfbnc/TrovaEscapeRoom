@@ -2,8 +2,8 @@ package com.stapp.trovaescape.data;
 
 public class Constants {
 
-    public static String DATA_URL = "https://api.npoint.io/f6ad0dcc06d8cba8843a";
-    public static String LTU_URL = "https://api.npoint.io/4374c4ad8c1086dc8880";
+    public static String DATA_URL = "https://api.jsonbin.io/b/5ee3bb1c1f9e4e57881c6bbe/latest";//"https://api.npoint.io/f6ad0dcc06d8cba8843a";
+    public static String LTU_URL = "https://api.jsonbin.io/b/5ee3e9651f9e4e57881c8189/latest";//https://api.npoint.io/4374c4ad8c1086dc8880";
 
     public static String NULL_TIME = "0";
     public static String TIME_0 = "19700101000000";
