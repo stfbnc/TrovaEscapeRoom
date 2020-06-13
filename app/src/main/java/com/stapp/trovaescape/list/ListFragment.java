@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -73,6 +74,14 @@ public class ListFragment extends Fragment {
             }
         });
 
+        ImageButton filterBtn = v.findViewById(R.id.filter);
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFilters();
+            }
+        });
+
         final RecyclerView recEscape = v.findViewById(R.id.escapes_recycle);
         recEscape.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -127,6 +136,10 @@ public class ListFragment extends Fragment {
             Log.d("LIST_FRAGMENT_OPEN_DET", "Escape details fragment error!");
             Toast.makeText(getActivity(), R.string.det_frag_err, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void setFilters(){
+
     }
 
 }
