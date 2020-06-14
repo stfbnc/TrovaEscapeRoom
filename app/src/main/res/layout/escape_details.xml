@@ -43,28 +43,28 @@
 
             <ImageButton
                 android:id="@+id/escape_phone"
-                android:layout_width="@dimen/details_btn_size"
-                android:layout_height="@dimen/details_btn_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/phone"
+                android:background="@drawable/phone_button"
                 android:layout_marginEnd="60dp"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/escape_website"/>
 
             <ImageButton
                 android:id="@+id/escape_website"
-                android:layout_width="@dimen/details_btn_size"
-                android:layout_height="@dimen/details_btn_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/link"
+                android:background="@drawable/link_button"
                 android:layout_centerInParent="true"/>
 
             <ImageButton
                 android:id="@+id/escape_directions"
-                android:layout_width="@dimen/details_btn_size"
-                android:layout_height="@dimen/details_btn_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/directions"
+                android:background="@drawable/directions_button"
                 android:layout_marginStart="60dp"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/escape_website"/>

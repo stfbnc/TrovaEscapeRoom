@@ -37,6 +37,8 @@ public class Constants {
     public static int DOESNT_EXIST_INT = -1;
     public static String EXISTS = "DONE";
 
+    public static int MAX_HOURS = 8;
+
     public static int MAX_TAGS = 3;
     public static String HORROR_TAG = "horror";
     public static String ACTORS_TAG = "attori";

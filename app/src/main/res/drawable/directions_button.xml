@@ -2,13 +2,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:gravity="fill"
-        android:drawable="@drawable/white_circle" />
+        android:drawable="@drawable/ic_radio_button_unchecked_black_24dp" />
     <item
         android:gravity="center"
         android:drawable="@drawable/directions"
-        android:top="5dp"
-        android:bottom="5dp"
-        android:left="5dp"
-        android:right="5dp" />
+        android:top="10dp"
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp" />
 
 </layer-list>

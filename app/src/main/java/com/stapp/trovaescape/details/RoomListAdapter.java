@@ -110,13 +110,16 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
             if(roomList.get(position).getFree()){
                 String[] avl = Utils.getAvailsFormatted(ctx, roomList.get(position).getAvailabilities());
                 //holder.avails.setText(avl);
-                //for(int i = 0; i < avl.length; i++) {
-                for(int i = 0; i < 8; i++) {
+                for(int i = 0; i < avl.length; i++) {
                     ImageView iv = holder.avails.get(i);
                     iv.setVisibility(View.VISIBLE);
                     //Bitmap h = Utils.getHourItem(ctx, avl[i]);
-                    Bitmap h = Utils.getHourItem(ctx, avl[0]);
+                    Bitmap h = Utils.getHourItem(ctx, avl[i]);
                     iv.setImageBitmap(h);
+                }
+                for(int i = avl.length; i < Constants.MAX_HOURS; i++) {
+                    ImageView iv = holder.avails.get(i);
+                    iv.setVisibility(View.GONE);
                 }
                 //holder.avails.setImageBitmap(h);
             }else{
