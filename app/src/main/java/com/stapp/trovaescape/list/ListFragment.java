@@ -21,11 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Escape;
+import com.stapp.trovaescape.data.Room;
 import com.stapp.trovaescape.db.DataManager;
 import com.stapp.trovaescape.details.EscapeDetails;
 import com.stapp.trovaescape.main.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class ListFragment extends Fragment {
@@ -74,13 +77,13 @@ public class ListFragment extends Fragment {
             }
         });
 
-        ImageButton filterBtn = v.findViewById(R.id.filter);
-        filterBtn.setOnClickListener(new View.OnClickListener() {
+        //ImageButton filterBtn = v.findViewById(R.id.filter);
+        /*filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFilters();
             }
-        });
+        });*/
 
         final RecyclerView recEscape = v.findViewById(R.id.escapes_recycle);
         recEscape.setHasFixedSize(true);
@@ -121,6 +124,18 @@ public class ListFragment extends Fragment {
         escapeList.clear();
         DataManager dm = new DataManager(getContext());
         escapeList.addAll(dm.getEscapes(seq));
+
+        Collections.sort(escapeList, new Comparator<Escape>() {
+            @Override
+            public int compare(Escape e1, Escape e2) {
+                int boolCompare = Boolean.compare(e1.getFree(), e2.getFree());
+                if(boolCompare == 0)
+                    return e1.getName().compareToIgnoreCase(e2.getName());
+                else
+                    return -boolCompare;
+            }
+        });
+
         adapter.notifyDataSetChanged();
     }
 
@@ -138,8 +153,8 @@ public class ListFragment extends Fragment {
         }
     }
 
-    private void setFilters(){
+    /*private void setFilters(){
 
-    }
+    }*/
 
 }

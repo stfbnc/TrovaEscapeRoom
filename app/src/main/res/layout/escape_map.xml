@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -34,9 +34,9 @@
             android:layout_gravity="center_vertical"
             android:inputType="text"/>
 
-    </LinearLayout-->
+    </LinearLayout>
 
-    <RelativeLayout
+    <!--RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -79,7 +79,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/filter_button_icon"/>
 
-    </RelativeLayout>
+    </RelativeLayout-->
 
     <!--fragment
         xmlns:tools="http://schemas.android.com/tools"
