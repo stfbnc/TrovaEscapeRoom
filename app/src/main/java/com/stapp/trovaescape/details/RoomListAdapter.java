@@ -127,12 +127,16 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
                 holder.atitle.setVisibility(View.GONE);
             }
 
-            holder.book.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    goToSite(roomList.get(holder.getAdapterPosition()).getWebsite());
-                }
-            });
+            if(!roomList.get(position).getWebsite().equals("")) {
+                holder.book.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        goToSite(roomList.get(holder.getAdapterPosition()).getWebsite());
+                    }
+                });
+            }else{
+                holder.book.setVisibility(View.GONE);
+            }
 
             if(roomList.get(position).getDone())
                 holder.done.setBackground(ctx.getDrawable(R.drawable.room_done));

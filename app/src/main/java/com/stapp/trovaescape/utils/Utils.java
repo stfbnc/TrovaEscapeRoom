@@ -142,8 +142,12 @@ public class Utils {
             tagItem.setBackground(context.getDrawable(R.drawable.green_background));
         else if(tag.equals(Constants.MISTERY_TAG))
             tagItem.setBackground(context.getDrawable(R.drawable.yellow_background));
+        else if(tag.equals(Constants.ACTION_TAG))
+            tagItem.setBackground(context.getDrawable(R.drawable.light_blue_background));
+        else if(tag.equals(Constants.CAZZEGGIO_TAG))
+            tagItem.setBackground(context.getDrawable(R.drawable.violet_background));
         else
-            tagItem.setBackground(context.getDrawable(R.drawable.yellow_background));
+            tagItem.setBackground(context.getDrawable(R.drawable.hour_background));
 
         return tagItem.makeIcon("#"+tag);
     }

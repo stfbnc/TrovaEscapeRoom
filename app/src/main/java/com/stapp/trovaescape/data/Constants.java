@@ -43,6 +43,9 @@ public class Constants {
     public static String HORROR_TAG = "horror";
     public static String ACTORS_TAG = "attori";
     public static String ADVENTURE_TAG = "avventura";
-    public static String MISTERY_TAG = "mistero";
+    public static String MISTERY_TAG = "thriller";
+    public static String ACTION_TAG = "azione";
+    public static String CAZZEGGIO_TAG = "cazzeggio";
+
 
 }

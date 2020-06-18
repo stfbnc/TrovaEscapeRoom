@@ -99,8 +99,10 @@ public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
         imWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(currentEscape.getWebsite()));
-                startActivity(i);
+                if(!currentEscape.getWebsite().equals("")) {
+                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(currentEscape.getWebsite()));
+                    startActivity(i);
+                }
             }
         });
         /*String ws = "<a href=\"" + currentEscape.getWebsite() + "\">" +
