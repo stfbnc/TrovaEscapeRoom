@@ -65,10 +65,14 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
     public void onBindViewHolder(final EscapeListAdapter.ViewHolder holder, int position) {
         holder.itemView.setOnClickListener(clickListener);
         if(escapeList.size() > 0){
-            if(escapeList.get(position).getFree())
+            if(escapeList.get(position).getFree()) {
                 holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.escape_icon_green));
-            else
-                holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.escape_icon_red));
+            }else{
+                if(escapeList.get(position).getUncertain())
+                    holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.escape_icon_yellow));
+                else
+                    holder.freeRooms.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.escape_icon_red));
+            }
 
             holder.name.setText(escapeList.get(position).getName());
 

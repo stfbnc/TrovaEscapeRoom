@@ -9,6 +9,7 @@ public class Room {
     private String availabilities;
     private String tags;
     private boolean isFree;
+    private boolean isUncertain;
     private boolean isDone;
 
     public Room(){
@@ -19,6 +20,7 @@ public class Room {
         this.availabilities = "";
         this.tags = "";
         this.isFree = false;
+        this.isUncertain = false;
         this.isDone = false;
     }
 
@@ -40,8 +42,12 @@ public class Room {
 
     public void setAvailabilities(String availabilities) {
         this.availabilities = availabilities;
-        if(!availabilities.equals(""))
-            setFree(true);
+        if(!availabilities.equals("")) {
+            if(availabilities.equals(Constants.NO_RETR_AVAILS))
+                setUncertain(true);
+            else
+                setFree(true);
+        }
     }
 
     public String getAvailabilities() { return availabilities; }
@@ -53,6 +59,10 @@ public class Room {
     public void setFree(boolean isFree) { this.isFree = isFree; }
 
     public boolean getFree() { return isFree; }
+
+    public void setUncertain(boolean isUncertain) { this.isUncertain = isUncertain; }
+
+    public boolean getUncertain() { return isUncertain; }
 
     public void setDone(boolean isDone) { this.isDone = isDone; }
 

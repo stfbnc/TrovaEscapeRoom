@@ -80,10 +80,14 @@ public class MapMarker {
 
         IconGenerator marker = new IconGenerator(context);
         marker.setTextAppearance(context, R.style.markerText);
-        if(escape.getFree())
+        if(escape.getFree()){
             marker.setBackground(context.getDrawable(R.drawable.marker_background_green));
-        else
-            marker.setBackground(context.getDrawable(R.drawable.marker_background_red));
+        }else{
+            if(escape.getUncertain())
+                marker.setBackground(context.getDrawable(R.drawable.marker_background_yellow));
+            else
+                marker.setBackground(context.getDrawable(R.drawable.marker_background_red));
+        }
 
         return marker.makeIcon(escape.getShortName() + " \u25CF " + Utils.getRoomsDoneRatio(escape));
     }

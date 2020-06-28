@@ -42,8 +42,6 @@ import java.util.Objects;
 
 public class EscapeDetails extends Fragment {// implements OnMapReadyCallback {
 
-    // TODO: filtro
-
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     public static boolean isOpen = false;
 

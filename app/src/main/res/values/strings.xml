@@ -7,7 +7,11 @@
     <string name="site_string">Sito</string>
     <string name="prices_string">PREZZI</string>
     <string name="today_string">ORARI DISPONIBILI OGGI</string>
-    
+
+    <string name="no_prices">Prezzi non disponibili, contattare la struttura</string>
+    <string name="no_avails">Orari non disponibili dall\'app, controllare il sito della struttura</string>
+    <string name="no_avails_today">Nessun orario disponibile per la giornata di oggi</string>
+
     <!--string name="area">Zona</string>
     <string name="north_area">Roma Nord</string>
     <string name="south_area">Roma Sud</string>

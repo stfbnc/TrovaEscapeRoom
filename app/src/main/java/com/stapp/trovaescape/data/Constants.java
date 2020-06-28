@@ -47,5 +47,7 @@ public class Constants {
     public static String ACTION_TAG = "azione";
     public static String CAZZEGGIO_TAG = "cazzeggio";
 
+    public static String NO_RETR_AVAILS = "no_retrievable_hours";
+    public static String NO_RETR_PRICES = "no_retrievable_prices";
 
 }

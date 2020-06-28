@@ -6,6 +6,7 @@
     <color name="white">#FFFFFF</color>
     <color name="available">@android:color/holo_green_dark</color>
     <color name="not_available">@android:color/holo_red_dark</color>
+    <color name="not_retrievable_hours">@android:color/holo_orange_light</color>
     <color name="done">#06770E</color>
     <color name="not_done">@android:color/darker_gray</color>
     <color name="phone_color">#06770E</color>

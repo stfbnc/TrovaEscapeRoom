@@ -51,6 +51,12 @@ public class SplashScreen extends FragmentActivity {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             }
+            Log.d("FIRST_RUN", "FIRST RUN");
+            dataManager.setDbTime(Constants.TIME_0);
+        }
+
+        if(dataManager.countDbTime() != 1){
+            dataManager.deleteDbTime();
             dataManager.setDbTime(Constants.TIME_0);
         }
 

@@ -24,6 +24,7 @@ public class Escape {
     private String tags;
     private ArrayList<Room> rooms;
     private boolean isFree;
+    private boolean isUncertain;
 
     public Escape(Context context){
         this.context = context;
@@ -36,6 +37,7 @@ public class Escape {
         this.coords = null;
         this.rooms = new ArrayList<>();
         this.isFree = false;
+        this.isUncertain = false;
     }
 
     public void setCode(String code) { this.code = code; }
@@ -72,8 +74,11 @@ public class Escape {
 
     public void setRooms(ArrayList<Room> rooms) {
         for(int i = 0; i < rooms.size(); i++) {
-            if(!rooms.get(i).getAvailabilities().equals("")) {
-                setFree(true);
+            if(!rooms.get(i).getAvailabilities().equals("")){
+                if(rooms.get(i).getAvailabilities().equals(Constants.NO_RETR_AVAILS))
+                    setUncertain(true);
+                else
+                    setFree(true);
                 break;
             }
         }
@@ -101,5 +106,9 @@ public class Escape {
     public void setFree(boolean isFree) { this.isFree = isFree; }
 
     public boolean getFree() { return isFree; }
+
+    public void setUncertain(boolean isUncertain) { this.isUncertain = isUncertain; }
+
+    public boolean getUncertain() { return isUncertain; }
 
 }

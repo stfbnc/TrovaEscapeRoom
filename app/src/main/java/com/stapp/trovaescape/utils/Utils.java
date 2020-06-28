@@ -40,6 +40,7 @@ public class Utils {
 
         prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
 
+        Log.d("FIRST_RUN", String.valueOf(firstRun));
         return firstRun;
     }
 

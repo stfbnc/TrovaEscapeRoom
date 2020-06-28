@@ -129,10 +129,15 @@ public class ListFragment extends Fragment {
             @Override
             public int compare(Escape e1, Escape e2) {
                 int boolCompare = Boolean.compare(e1.getFree(), e2.getFree());
-                if(boolCompare == 0)
-                    return e1.getName().compareToIgnoreCase(e2.getName());
-                else
+                if(boolCompare == 0) {
+                    int boolCompareUnc = Boolean.compare(e1.getUncertain(), e2.getUncertain());
+                    if(boolCompareUnc == 0)
+                        return e1.getName().compareToIgnoreCase(e2.getName());
+                    else
+                        return -boolCompareUnc;
+                } else {
                     return -boolCompare;
+                }
             }
         });
 

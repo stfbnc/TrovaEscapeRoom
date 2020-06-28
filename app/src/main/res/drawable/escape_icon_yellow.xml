@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:gravity="fill"
+        android:drawable="@drawable/ic_radio_button_unchecked_black_24dp" />
+    <item
+        android:gravity="center"
+        android:drawable="@drawable/icon_lock_yellow_24dp"
+        android:top="10dp"
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp" />
+
+</layer-list>

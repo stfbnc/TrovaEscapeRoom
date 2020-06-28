@@ -92,6 +92,7 @@ public class DataManager {
             time = c.getString(0);
         }
         c.close();
+        Log.i("DbTime() = ", time);
         return time;
     }
 
@@ -101,6 +102,20 @@ public class DataManager {
                        " WHERE " + LTU_TAB_ID + " = 1;";
         Log.i("updateDbTime() = ", query);
         db.execSQL(query);
+    }
+
+    public void deleteDbTime(){
+        db.execSQL("DELETE FROM "+ LTU_TAB);
+    }
+
+    public int countDbTime(){
+        String query = "SELECT * FROM " + LTU_TAB + ";";
+        Cursor c = db.rawQuery(query,null);
+        Log.i("countDbTime()", String.valueOf(c.getCount()));
+        int n = c.getCount();
+        c.close();
+
+        return n;
     }
 
     public void fillDb(ArrayList<Escape> e){
