@@ -47,7 +47,7 @@
         android:layout_height="@dimen/details_btn_size"
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
-        android:layout_weight="0.05">
+        android:layout_weight="0.055">
 
         <ImageButton
             android:id="@+id/escape_phone"
