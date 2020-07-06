@@ -7,7 +7,6 @@ public class Room {
     private String website;
     private String prices;
     private String availabilities;
-    private String tags;
     private boolean isFree;
     private boolean isUncertain;
     private boolean isDone;
@@ -18,7 +17,6 @@ public class Room {
         this.website = "";
         this.prices = "";
         this.availabilities = "";
-        this.tags = "";
         this.isFree = false;
         this.isUncertain = false;
         this.isDone = false;
@@ -51,10 +49,6 @@ public class Room {
     }
 
     public String getAvailabilities() { return availabilities; }
-
-    public void setTags(String tags) { this.tags = tags; }
-
-    public String getTags() { return tags; }
 
     public void setFree(boolean isFree) { this.isFree = isFree; }
 

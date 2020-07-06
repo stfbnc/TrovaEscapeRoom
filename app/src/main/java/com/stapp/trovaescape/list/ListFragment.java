@@ -1,6 +1,5 @@
 package com.stapp.trovaescape.list;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -21,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Escape;
-import com.stapp.trovaescape.data.Room;
 import com.stapp.trovaescape.db.DataManager;
 import com.stapp.trovaescape.details.EscapeDetails;
 import com.stapp.trovaescape.main.MainActivity;
@@ -37,17 +34,10 @@ public class ListFragment extends Fragment {
 
     private EditText searchEdit;
     private ArrayList<Escape> escapeList = new ArrayList<>();
-    //private String filter = "";
     private EscapeListAdapter adapter;
     private BottomNavigationView bottomNavigationView;
 
-    public ListFragment(){//BottomNavigationView bottomNavigationView){
-        //this.bottomNavigationView = bottomNavigationView;
-    }
-
-    /*public static ListFragment newInstance(){//BottomNavigationView bottomNavigationView){
-        return new ListFragment();//bottomNavigationView);
-    }*/
+    public ListFragment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,14 +66,6 @@ public class ListFragment extends Fragment {
                 getEscapeList(MainActivity.filter);
             }
         });
-
-        //ImageButton filterBtn = v.findViewById(R.id.filter);
-        /*filterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFilters();
-            }
-        });*/
 
         final RecyclerView recEscape = v.findViewById(R.id.escapes_recycle);
         recEscape.setHasFixedSize(true);
@@ -157,9 +139,5 @@ public class ListFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.det_frag_err, Toast.LENGTH_LONG).show();
         }
     }
-
-    /*private void setFilters(){
-
-    }*/
 
 }

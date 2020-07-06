@@ -29,7 +29,6 @@ public class DataManager {
     public static final String ESCAPE_TAB_CODE = "CODE"; // code identifier
     public static final String ESCAPE_TAB_SHORT_NAME = "SHORT_NAME"; // short name
     public static final String ESCAPE_TAB_TAGS = "TAGS"; // tags
-    public static final int ESCAPE_TAB_ID_IDX = 0;
     public static final int ESCAPE_TAB_NAME_IDX = 1;
     public static final int ESCAPE_TAB_ADDRESS_IDX = 2;
     public static final int ESCAPE_TAB_PHONE_IDX = 3;
@@ -47,7 +46,6 @@ public class DataManager {
     public static final String ROOM_TAB_PRICES = "PRICES"; // prices
     public static final String ROOM_TAB_AVAIL = "AVAIL"; // availabilities
     public static final String ROOM_TAB_CODE = "CODE"; // code identifier
-    public static final int ROOM_TAB_ID_IDX = 0;
     public static final int ROOM_TAB_NAME_IDX = 1;
     public static final int ROOM_TAB_WEBSITE_IDX = 2;
     public static final int ROOM_TAB_PRICES_IDX = 3;
@@ -57,8 +55,6 @@ public class DataManager {
     // db ltu table columns
     public static final String LTU_TAB_ID = "ID"; // id
     public static final String LTU_TAB_TIME = "TIME"; // last time modified
-    public static final int LTU_TAB_ID_IDX = 0;
-    public static final int LTU_TAB_TIME_IDX = 1;
 
     //db info
     private static final String DB_NAME = "APP_DB";
@@ -77,7 +73,6 @@ public class DataManager {
         String query = "INSERT INTO " + LTU_TAB +
                        " (" + LTU_TAB_TIME + ") " +
                        "VALUES ('" + time + "');";
-        Log.i("setDbTime() = ", query);
         db.execSQL(query);
     }
 
@@ -85,14 +80,13 @@ public class DataManager {
         String query = "SELECT " + LTU_TAB_TIME +
                        " FROM " + LTU_TAB +
                        " WHERE " + LTU_TAB_ID + " = 1;";
-        Log.i("getDbTime() = ", query);
         Cursor c = db.rawQuery(query,null);
         String time = Constants.NULL_TIME;
         if(c.moveToFirst()) {
             time = c.getString(0);
         }
         c.close();
-        Log.i("DbTime() = ", time);
+
         return time;
     }
 
@@ -100,7 +94,6 @@ public class DataManager {
         String query = "UPDATE " + LTU_TAB +
                        " SET " + LTU_TAB_TIME + " = '" + time + "'" +
                        " WHERE " + LTU_TAB_ID + " = 1;";
-        Log.i("updateDbTime() = ", query);
         db.execSQL(query);
     }
 
@@ -111,7 +104,6 @@ public class DataManager {
     public int countDbTime(){
         String query = "SELECT * FROM " + LTU_TAB + ";";
         Cursor c = db.rawQuery(query,null);
-        Log.i("countDbTime()", String.valueOf(c.getCount()));
         int n = c.getCount();
         c.close();
 
@@ -131,7 +123,6 @@ public class DataManager {
         String query = "UPDATE " + ROOM_TAB +
                 " SET " + ROOM_TAB_PRICES + " = '', " +
                 ROOM_TAB_AVAIL + " = '';";
-        Log.i("fillDbW/oInternet() = ", query);
         db.execSQL(query);
     }
 
@@ -155,7 +146,6 @@ public class DataManager {
                 "'" + e.getCode() + "', " +
                 "'" + e.getShortName() + "', " +
                 "'" + e.getTags() + "');";
-        Log.i("fillDbWithEscape() = ", query);
         db.execSQL(query);
     }
 
@@ -173,22 +163,18 @@ public class DataManager {
                     "'" + room.getPrices() + "', " +
                     "'" + room.getAvailabilities() + "', " +
                     "'" + room.getCode() + "');";
-            Log.i("fillDbWithRooms() = ", query);
             db.execSQL(query);
         }
     }
 
     public ArrayList<Escape> getEscapes(String str){
-        //Log.d("DB STR 1", str);
         ArrayList<Escape> escapes = new ArrayList<>();
         String query = "SELECT * FROM " + ESCAPE_TAB;
         if(!str.equals("")) {
             if(str.startsWith("#")) {
                 query += " WHERE LOWER(" + ESCAPE_TAB_TAGS + ") LIKE '%" + str.substring(1).toLowerCase() + "%'";
-                //Log.d("DB STR 2", query);
             }else {
                 query += " WHERE LOWER(" + ESCAPE_TAB_NAME + ") LIKE '%" + str.toLowerCase() + "%'";
-                //Log.d("DB STR 3", query);
             }
         }
         Cursor c = db.rawQuery(query,null);
@@ -208,6 +194,7 @@ public class DataManager {
             } while(c.moveToNext());
         }
         c.close();
+
         return escapes;
     }
 
@@ -228,6 +215,7 @@ public class DataManager {
             } while (c.moveToNext());
         }
         c.close();
+
         return rooms;
     }
 

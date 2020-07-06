@@ -4,20 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.stapp.trovaescape.R;
@@ -36,10 +31,9 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
     View.OnClickListener clickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, prices, ptitle, atitle, hourInfo;
+        public TextView name, prices, ptitle, atitle, hourInfo, roomColor;
         public ArrayList<ImageView> avails = new ArrayList<>();
         public ImageButton book, done;
-        public LinearLayout room_layout, hours;
         public ViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.room_name);
@@ -55,19 +49,15 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
             ptitle = v.findViewById(R.id.title_prices);
             atitle = v.findViewById(R.id.title_avails);
             hourInfo = v.findViewById(R.id.hour_info);
+            roomColor = v.findViewById(R.id.room_color);
             book = v.findViewById(R.id.book_btn);
             done = v.findViewById(R.id.escape_tick);
-            room_layout = v.findViewById(R.id.roomlist_row);
         }
     }
 
     public RoomListAdapter(ArrayList<Room> roomList) {
         setHasStableIds(true);
         this.roomList = roomList;
-    }
-
-    public void setOnItemClickListener(View.OnClickListener clickListener) {
-        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -82,44 +72,27 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final RoomListAdapter.ViewHolder holder, int position) {
-        //holder.itemView.setOnClickListener(clickListener);
         if(roomList.size() > 0){
-            if(roomList.get(position).getFree()) {//.getAvailabilities().equals(""))
-                holder.room_layout.setBackground(ctx.getDrawable(R.drawable.room_background_green));
+            if(roomList.get(position).getFree()) {
+                holder.roomColor.setBackgroundColor(ctx.getResources().getColor(R.color.available));
             } else {
-                if(roomList.get(position).getUncertain())
-                    holder.room_layout.setBackground(ctx.getDrawable(R.drawable.room_background_yellow));
-                else
-                    holder.room_layout.setBackground(ctx.getDrawable(R.drawable.room_background_red));
+                if(roomList.get(position).getUncertain()) {
+                    holder.roomColor.setBackgroundColor(ctx.getResources().getColor(R.color.not_retrievable_hours));
+                }else {
+                    holder.roomColor.setBackgroundColor(ctx.getResources().getColor(R.color.not_available));
+                }
             }
 
             holder.name.setText(roomList.get(position).getName());
 
             String prc = Utils.getPricesFormatted(ctx, roomList.get(position).getPrices());
-            if(prc.equals("")) {
-                //holder.prices.setVisibility(View.GONE);
-                //holder.ptitle.setVisibility(View.GONE);
-                holder.prices.setText(ctx.getString(R.string.no_prices));
-            } else {
-                holder.prices.setText(prc);
-            }
+            holder.prices.setText(prc);
 
-            /*String avl = Utils.getAvailsFormatted(ctx, roomList.get(position).getAvailabilities());
-            if(avl.equals("")) {
-                holder.avails.setVisibility(View.GONE);
-                holder.atitle.setVisibility(View.GONE);
-            }else {
-                holder.avails.setText(avl);
-            }*/
-            //String avl = Utils.getAvailsFormatted(ctx, roomList.get(position).getAvailabilities());
-            //Log.d("ROOM", roomList.get(position).getName()+" --- "+avl+" --- "+roomList.get(position).getFree());
             if(roomList.get(position).getFree()){
                 String[] avl = Utils.getAvailsFormatted(ctx, roomList.get(position).getAvailabilities());
-                //holder.avails.setText(avl);
                 for(int i = 0; i < avl.length; i++) {
                     ImageView iv = holder.avails.get(i);
                     iv.setVisibility(View.VISIBLE);
-                    //Bitmap h = Utils.getHourItem(ctx, avl[i]);
                     Bitmap h = Utils.getHourItem(ctx, avl[i]);
                     iv.setImageBitmap(h);
                 }
@@ -127,15 +100,12 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ViewHo
                     ImageView iv = holder.avails.get(i);
                     iv.setVisibility(View.GONE);
                 }
-                //holder.avails.setImageBitmap(h);
             }else{
                 holder.hourInfo.setVisibility(View.VISIBLE);
                 if(roomList.get(position).getUncertain())
                     holder.hourInfo.setText(ctx.getString(R.string.no_avails));
                 else
                     holder.hourInfo.setText(ctx.getString(R.string.no_avails_today));
-                //holder.avails.setVisibility(View.GONE);
-                //holder.atitle.setVisibility(View.GONE);
             }
 
             if(!roomList.get(position).getWebsite().equals("")) {

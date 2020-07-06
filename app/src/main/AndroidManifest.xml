@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -32,9 +32,6 @@
             android:windowSoftInputMode="adjustPan"
             android:label="@string/main_activity_title"/>
 
-        <!--activity
-            android:name=".map.MapFragment"
-            android:label="@string/main_activity_title"/-->
     </application>
 
 </manifest>

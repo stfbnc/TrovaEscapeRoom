@@ -12,22 +12,6 @@
     <string name="no_avails">Orari non disponibili dall\'app, controllare il sito della struttura</string>
     <string name="no_avails_today">Nessun orario disponibile per la giornata di oggi</string>
 
-    <!--string name="area">Zona</string>
-    <string name="north_area">Roma Nord</string>
-    <string name="south_area">Roma Sud</string>
-    <string name="centre_area">Roma Centro</string>
-    <string name="east_area">Roma Est</string>
-    <string name="west_area">Roma Ovest</string>
-
-    <string name="available">Libere oggi</string>
-    <string name="not_available">Non libere oggi</string>
-
-    <string name="alphabet">Ordine alfabetico</string>
-    <string name="inverse_alphabet">Ordine alfabetico inverso</string>
-
-    <string name="alphabet">Fatte</string>
-    <string name="inverse_alphabet">Non fatte</string-->
-
     <string name="bottom_list">Lista</string>
     <string name="bottom_map">Mappa</string>
 

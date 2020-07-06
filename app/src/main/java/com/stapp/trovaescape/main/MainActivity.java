@@ -13,12 +13,10 @@ import android.view.View;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.stapp.trovaescape.R;
 import com.stapp.trovaescape.data.Constants;
 import com.stapp.trovaescape.data.Escape;
-import com.stapp.trovaescape.data.Room;
 import com.stapp.trovaescape.data_management.DataRetriever;
 import com.stapp.trovaescape.data_management.VolleyResponseListener;
 import com.stapp.trovaescape.db.DataManager;
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                Log.d("AAAAAA", "BBBBBB");
                 checkForData(dataRetriever, dataManager);
                 handler.postDelayed( this, Constants.DELAY);
             }
@@ -72,14 +69,12 @@ public class MainActivity extends AppCompatActivity {
             @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_list:
-                        //openFragment(ListFragment.newInstance(), LIST_FRAGMENT);//bottomNavigation));
                         fragmentManager.beginTransaction().hide(currentFragment).show(listFragment).commit();
                         currentFragment = listFragment;
                         return true;
                     case R.id.navigation_map:
                         fragmentManager.beginTransaction().hide(currentFragment).show(mapFragment).commit();
                         currentFragment = mapFragment;
-                        //openFragment(MapFragment.newInstance(), MAP_FRAGMENT);
                         return true;
                 }
                 return false;

@@ -8,7 +8,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 import com.stapp.trovaescape.data.Constants;
 import com.stapp.trovaescape.data.Escape;
@@ -19,13 +18,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class DataRetriever implements VolleyResponseListener {
 
     private Context context;
-    //private String time = "";
-    //private ArrayList<Escape> escapes;
 
     public DataRetriever(Context context) {
         this.context = context;
@@ -46,35 +42,6 @@ public class DataRetriever implements VolleyResponseListener {
         rs.add(jsonObjectRequest);
     }
 
-    /*public void requestUpdateTime(){
-        RequestQueue rs = Volley.newRequestQueue(context);
-        sendJsonRequest(rs, Constants.LTU_URL, new VolleyResponseListener() {
-            @Override
-            public void onErrorResponse(String message) {
-                Log.d("respErrorLTU", "responseErrorLTU = " + message);
-                time = Constants.NULL_TIME;
-            }
-
-            @Override
-            public void onResponse(JSONObject response) {
-                if (response != null) {
-                    Log.d("respOKLTU", "responseOKLTU = " + response);
-                    String responseStr = response.toString().trim();
-                    Pattern regex = Pattern.compile("\"[0-9]{14}\"");
-                    if (regex.matcher(responseStr).find()) {
-                        setTime(response);
-                    }else{
-                        Log.d("wrongDateLTU", "responseLTU = " + response);
-                        time = Constants.NULL_TIME;
-                    }
-                } else {
-                    Log.d("respNullLTU", "responseLTU = null");
-                    time = Constants.NULL_TIME;
-                }
-            }
-        });
-    }*/
-
     public String getTimeString(JSONObject obj){
         try {
             return obj.get(Constants.DB_TIME).toString();
@@ -83,29 +50,6 @@ public class DataRetriever implements VolleyResponseListener {
             return Constants.NULL_TIME;
         }
     }
-
-    /*public ArrayList<Escape> requestData(){
-        RequestQueue rs = Volley.newRequestQueue(context);
-        sendJsonRequest(rs, Constants.DATA_URL, new VolleyResponseListener() {
-            @Override
-            public void onErrorResponse(String message) {
-                Log.d("respErrorDATA", "responseErrorDATA = " + message);
-                escapes =  new ArrayList<>();
-            }
-
-            @Override
-            public void onResponse(JSONObject response) {
-                if (response != null) {
-                    Log.d("respOKDATA", "responseOKDATA = " + response);
-                    escapes = getEscapes(response);
-                } else {
-                    Log.d("respNullDATA", "responseDATA = null");
-                    escapes =  new ArrayList<>();
-                }
-            }
-        });
-        return escapes;
-    }*/
 
     public ArrayList<Escape> getEscapesArray(JSONObject obj){
         try{

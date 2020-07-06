@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:gravity="fill"
-        android:drawable="@drawable/ic_radio_button_unchecked_black_24dp" />
+        android:drawable="@drawable/white_circle" />
     <item
         android:gravity="center"
         android:drawable="@drawable/directions"

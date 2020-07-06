@@ -1,6 +1,5 @@
 package com.stapp.trovaescape.map;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,14 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,7 +19,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -55,16 +49,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     public MapFragment(){}
 
-    /*public static MapFragment newInstance(){
-        return new MapFragment();
-    }*/
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.escape_map);
-        //SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        //mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -102,19 +89,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return v;
     }
 
-    /*@Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-    //public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //super.onActivityCreated(savedInstanceState);
-        if(getActivity()!=null) {
-            SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map);
-            if (mapFragment != null) {
-                mapFragment.getMapAsync(this);
-            }
-        }
-    }*/
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -123,21 +97,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         markersCoords.clear();
         DataManager dm = new DataManager(getContext());
         escapeList.addAll(dm.getEscapes(MainActivity.filter));
-        Log.d("AAAA", MainActivity.filter);
         if(escapeList.size() > 0) {
             for (int i = 0; i < escapeList.size(); i++)
                 markersCoords.put(escapeList.get(i).getCoords(), escapeList.get(i));
 
-            //float color;
             ArrayList<Marker> markersList = new ArrayList<>();
-            //for(int i = 0; i < markersCoords.size(); i++){
             for (LatLng coords : markersCoords.keySet()) {
-                /*if(markersCoords.get(coords).getFree())
-                    color = BitmapDescriptorFactory.HUE_GREEN;
-                else
-                    color = BitmapDescriptorFactory.HUE_RED;*/
-                //markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
-                //                    .icon(BitmapDescriptorFactory.defaultMarker(color))));
                 MapMarker mapMarker = new MapMarker(markersCoords.get(coords), getContext());
                 markersList.add(mMap.addMarker(new MarkerOptions().position(coords)
                         .icon(BitmapDescriptorFactory.fromBitmap(mapMarker.getMarker()))));
@@ -147,10 +112,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 builder.include(marker.getPosition());
             }
             final LatLngBounds bounds = builder.build();
-            //LinearLayout mapLayout = getView().findViewById(R.id.map_layout);
-            //mapLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            //    @Override
-            //    public void onGlobalLayout() {
             int width = getResources().getDisplayMetrics().widthPixels;
             int height = getResources().getDisplayMetrics().heightPixels;
             int minMetric = Math.max(width, height);
@@ -158,8 +119,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             if(!MainActivity.filter.equals(""))
                 padding = (int)(minMetric * 0.2);
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
-            //    }
-            //});
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
@@ -176,11 +135,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        //mapView.invalidate();
         searchEdit.setText(MainActivity.filter);
         if(mMap != null)
             onMapReady(mMap);
-        Log.d("map onResume", "map onResume");
     }
 
     @Override
@@ -189,7 +146,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         searchEdit.setText(MainActivity.filter);
         if(mMap != null)
             onMapReady(mMap);
-        Log.d("map onHiddenChanged", "map onHiddenChanged");
     }
 
     @Override
@@ -236,18 +192,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             transaction.commit();
             bottomNavigationView.setVisibility(View.GONE);
         }catch (NullPointerException npe){
-            Log.d("MAP_FRAGMENT_OPEN_DET", "Escape details fragment error!");
             Toast.makeText(getActivity(), R.string.det_frag_err, Toast.LENGTH_LONG).show();
         }
     }
-
-    /*private void getMarkersCoordinates(){
-        getEscapeList();
-
-    }
-
-    private void getEscapeList(){
-
-    }*/
 
 }

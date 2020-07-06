@@ -2,7 +2,6 @@ package com.stapp.trovaescape.list;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,6 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
             super(v);
             name = v.findViewById(R.id.name);
             address = v.findViewById(R.id.address);
-            //tags = v.findViewById(R.id.tags);
             count = v.findViewById(R.id.room_count);
             freeRooms = v.findViewById(R.id.free_img);
             tags.add((ImageView) v.findViewById(R.id.t1));
@@ -78,14 +76,10 @@ public class EscapeListAdapter extends RecyclerView.Adapter<EscapeListAdapter.Vi
 
             holder.address.setText(escapeList.get(position).getAddress());
 
-            //holder.tags.setText(escapeList.get(position).getAllTagsFormatted());
-
             holder.count.setText(Utils.getRoomsDoneRatio(escapeList.get(position)));
 
             String[] tg = Utils.getTagsFormatted(escapeList.get(holder.getAdapterPosition()).getTags());
-            //Log.d("NAME", escapeList.get(position).getName());
             for(int i = 0; i < tg.length; i++) {
-                //Log.d("TAGS", tg[i]);
                 if(i >= Constants.MAX_TAGS)
                     break;
                 ImageView iv = holder.tags.get(i);
